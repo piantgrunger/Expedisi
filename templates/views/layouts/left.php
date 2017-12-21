@@ -3,6 +3,8 @@ use hscstudio\mimin\components\Mimin;
 use yii\helpers\Html;
 $menuItems =
         [
+                    ['label' => 'Outlet' , 'icon' =>  'address-card-o', 'url' => ['/outlet/'],'visible' => !Yii::$app->user->isGuest],
+        
     
                     [
                         'visible' => !Yii::$app->user->isGuest,
