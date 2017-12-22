@@ -24,6 +24,7 @@ class User extends Model
      */
     public $identityImplement = null;
 
+
     /**
      * @inheritdoc
      */
@@ -77,9 +78,9 @@ class User extends Model
     {
         if ($this->identityImplement instanceof ActiveRecord) {
             return $this->serachActiveDataProvider($params);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**

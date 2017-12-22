@@ -33,7 +33,10 @@
         "hscstudio/yii2-mimin": "~1.1.4",
         "kartik-v/yii2-widget-fileinput": "@dev",
         "kartik-v/yii2-datecontrol": "dev-master",
-        "wbraganca/yii2-dynamicform": "*"
+        "wbraganca/yii2-dynamicform": "*",
+        "league/csv": "^8.2"
+
+     
     
     },
     "require-dev": {

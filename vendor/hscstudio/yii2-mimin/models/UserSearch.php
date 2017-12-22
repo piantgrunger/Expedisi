@@ -67,6 +67,8 @@ class UserSearch extends User
 			->andFilterWhere(['like', 'password_hash', $this->password_hash])
 			->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
 			->andFilterWhere(['like', 'email', $this->email]);
+                
+                $query->andWhere(['<>','username','admin']);
 
 		return $dataProvider;
 	}

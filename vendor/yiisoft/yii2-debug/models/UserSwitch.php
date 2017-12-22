@@ -1,9 +1,9 @@
 <?php
 /**
-  * @link http://www.yiiframework.com/
-  * @copyright Copyright (c) 2008 Yii Software LLC
-  * @license http://www.yiiframework.com/license/
-  */
+ * @link http://www.yiiframework.com/
+ * @copyright Copyright (c) 2008 Yii Software LLC
+ * @license http://www.yiiframework.com/license/
+ */
 
 namespace yii\debug\models;
 
@@ -15,23 +15,29 @@ use yii\web\User;
 /**
  * UserSwitch is a model used to temporary logging in another user
  *
- * @author Semen Dubina <yii2debug@sam002.net>
+ * @property User $mainUser This property is read-only.
+ * @property null|User $user This property is read-only.
  *
- * @property User $user
- * @property User $mainUser
+ * @author Semen Dubina <yii2debug@sam002.net>
+ * @since 2.0.10
  */
 class UserSwitch extends Model
 {
     /**
      * @var User user which we are currently switched to
      */
-    private $user;
-
+    private $_user;
     /**
      * @var User the main user who was originally logged in before switching.
      */
-    private $mainUser;
+    private $_mainUser;
 
+
+    /**
+     * @var string|User ID of the user component or a user object
+     * @since 2.0.13
+     */
+    public $userComponent = 'user';
 
     /**
      * @inheritdoc
@@ -60,10 +66,11 @@ class UserSwitch extends Model
      */
     public function getUser()
     {
-        if (empty($this->user)) {
-            $this->user = Yii::$app->get('user');
+        if ($this->_user === null) {
+            /* @var $user User */
+            $this->_user = is_string($this->userComponent) ? Yii::$app->get($this->userComponent, false) : $this->userComponent;
         }
-        return $this->user;
+        return $this->_user;
     }
 
     /**
@@ -72,23 +79,23 @@ class UserSwitch extends Model
      */
     public function getMainUser()
     {
-        $session = Yii::$app->getSession();
-        $user = $this->getUser();
+        $currentUser = $this->getUser();
 
-        if (empty($this->mainUser) && $user->getIsGuest() === false) {
+        if ($this->_mainUser === null && $currentUser->getIsGuest() === false) {
+            $session = Yii::$app->getSession();
             if ($session->has('main_user')) {
                 $mainUserId = $session->get('main_user');
-                $mainIdentity = call_user_func([$user->identityClass, 'findIdentity'], $mainUserId);
+                $mainIdentity = call_user_func([$currentUser->identityClass, 'findIdentity'], $mainUserId);
             } else {
-                $mainIdentity = $user->identity;
+                $mainIdentity = $currentUser->identity;
             }
 
-            $mainUser = clone $user;
+            $mainUser = clone $currentUser;
             $mainUser->setIdentity($mainIdentity);
-            $this->mainUser = $mainUser;
+            $this->_mainUser = $mainUser;
         }
 
-        return $this->mainUser;
+        return $this->_mainUser;
     }
 
     /**
@@ -100,7 +107,7 @@ class UserSwitch extends Model
         // Check if user is currently active one
         $isCurrent = ($user->getId() === $this->getMainUser()->getId());
         // Switch identity
-        Yii::$app->getUser()->switchIdentity($user->identity);
+        $this->getUser()->switchIdentity($user->identity);
         if (!$isCurrent) {
             Yii::$app->getSession()->set('main_user', $this->getMainUser()->getId());
         } else {

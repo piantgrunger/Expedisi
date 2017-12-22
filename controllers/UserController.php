@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use hscstudio\mimin\models\User;
+use app\models\UserCRUD;
 use hscstudio\mimin\models\AuthAssignment;
 use hscstudio\mimin\models\AuthItem;
 use hscstudio\mimin\models\UserSearch;
@@ -109,11 +109,10 @@ class UserController extends Controller
 	/**
 	 * Creates a new User model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * @return mixed
 	 */
 	public function actionCreate()
 	{
-		$model = new User();
+		$model = new UserCRUD();
 
 		if ($model->load(Yii::$app->request->post())) {
 			$model->setPassword('123456');
@@ -192,7 +191,7 @@ class UserController extends Controller
 	 */
 	protected function findModel($id)
 	{
-		if (($model = User::findOne($id)) !== null) {
+		if (($model = UserCRUD::findOne($id)) !== null) {
 			return $model;
 		} else {
 			throw new NotFoundHttpException('The requested page does not exist.');

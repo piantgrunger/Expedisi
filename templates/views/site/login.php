@@ -42,6 +42,14 @@ $fieldOptions2 = [
             ->label(false)
             ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
     
+               <div class="row">
+            <div class="col-xs-8">
+                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+    
+              <?= $form->field($model, 'verifyCode')->widget(Captcha::className())->label(false) ?>
+                       </div>
+        
+</div>
         <?= Html::submitButton('<i class="fa fa-key"> </i> Login', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
 
   

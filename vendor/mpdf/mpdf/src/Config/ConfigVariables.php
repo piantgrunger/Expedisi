@@ -53,6 +53,10 @@ class ConfigVariables
 			// 1:Decimal, A:uppercase alphabetic etc. (as for list-style shorthands)
 			'defaultPageNumStyle' => '1',
 
+			// PAGE NUMBER ALIASES
+			'aliasNbPg' => '{nb}',
+			'aliasNbPgGp' => '{nbpg}',
+
 			// FONTS, LANGUAGES & CHARACTER SETS
 			// Set maximum size of TTF font file to allow non-subsets - in kB
 			// Used to avoid a font e.g. Arial Unicode MS (perhaps used for substitutions) ever being fully embedded
@@ -442,7 +446,10 @@ class ConfigVariables
 
 			'pdf_version' => '1.4',
 
-			'fontDir' => __DIR__ . '/../../ttfonts',
+			'fontDir' => [
+				__DIR__ . '/../../ttfonts'
+			],
+
 			'tempDir' => __DIR__ . '/../../tmp',
 
 			'allowAnnotationFiles' => false,

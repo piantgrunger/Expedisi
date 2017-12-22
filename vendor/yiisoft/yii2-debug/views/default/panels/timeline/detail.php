@@ -14,7 +14,15 @@ TimelineAsset::register($this);
 ?>
 <h1 class="debug-timeline-panel__title">Timeline - <?= number_format($panel->getDuration()); ?> ms</h1>
 
-<?php $form = ActiveForm::begin(['method' => 'get', 'action' => $panel->getUrl(), 'id' => 'debug-timeline-search form-inline', 'enableClientScript' => false, 'options' => ['class' => 'debug-timeline-panel__search']]); ?>
+<?php $form = ActiveForm::begin([
+    'method' => 'get',
+    'action' => $panel->getUrl(),
+    'id' => 'debug-timeline-search',
+    'enableClientScript' => false,
+    'options' => [
+        'class' => 'debug-timeline-panel__search form-inline',
+    ],
+]) ?>
 <div class="duration">
     <?= Html::activeLabel($searchModel, 'duration') ?>
     <?= Html::activeInput('number', $searchModel, 'duration', ['min' => 0, 'size' => '3', 'class'=>'form-control']); ?>
@@ -53,7 +61,7 @@ TimelineAsset::register($this);
         <?php Pjax::begin(['formSelector' => '#debug-timeline-search', 'linkSelector' => false, 'options' => ['id' => 'debug-timeline-panel__pjax']]); ?>
         <?php if (($models = $dataProvider->models) === []): ?>
             <div class="debug-timeline-panel__item empty">
-                <span><?= Yii::t('yii', 'No results found.'); ?></span>
+                <span>No results found.</span>
             </div>
         <?php else: ?>
             <?php foreach ($models as $key => $model): ?>

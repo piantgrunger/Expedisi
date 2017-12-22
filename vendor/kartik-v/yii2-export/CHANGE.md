@@ -3,8 +3,9 @@ Change Log: `yii2-export`
 
 ## version 1.2.8
 
-**Date:** 21-Jun-2017
+**Date:** 19-Nov-2017
 
+- (bug #221, #222): Correct auto filter.
 - (bug #211): Correct directory creation to be recursive.
 - (enh #209): New event property `onGenerateFile`.
 - (enh #208): Optimize code and eliminate redundant properties.
@@ -15,6 +16,7 @@ Change Log: `yii2-export`
 - Code documentation enhancements.
 - (enh #188): Better validation of empty data using `isset`.
 - (enh #185): Add Vietnamese Translations.
+- (enh #126): Allow HTML tags in cell value based on data column format.
 
 ## version 1.2.7
 
@@ -22,9 +24,8 @@ Change Log: `yii2-export`
 
 - Update message config to include all default standard translation files.
 - (enh #182, #183): Correct column label key increment.
-- (enh #177): Add Vietnamese Translations.
-- (enh #175): Add French Translations.
 - (enh #177): Update French Translations.
+- (enh #175): Add French Translations.
 - (bug #165): Empty export result when only first column is selected.
 - (bug #164): Process export correctly when confirmation alert is not set.
 - (enh #163): Add dependency for kartik-v/yii2-dialog.

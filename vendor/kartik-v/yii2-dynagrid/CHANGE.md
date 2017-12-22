@@ -1,10 +1,32 @@
 Change Log: `yii2-dynagrid`
 ===========================
 
-## Version 1.4.6 (_under development_)
+## Version 1.4.8 (_under development_)
 
-**Date:** 04-May-2017
+**Date:** 10-Nov-2017
 
+- (enh #180): Enhance dynagrid config form when all settings are hidden.
+- (enh #177, #178): Update French Translations.
+- (enh #176): Update German Translations.
+
+## Version 1.4.7
+
+**Date:** 23-Oct-2017
+
+- (enh #170): Add ability to configure one's own module identifier.
+
+## Version 1.4.6
+
+**Date:** 15-Sep-2017
+
+- (enh #169): Enhance to generate unique input identifiers for dynagrid config & settings (allows multiple dynagrids to be rendered on same page).
+- (enh #168): Allow pageSize to be null when allowPageSetting is `false`.
+- (enh #167): Enhance dialog for confirmation & prompts to use Krajee Dialog extension.
+- (bug #166): Fix bug in client script causing dynagrid to break after filtering.
+- (enh #165): Eliminate dependency on Yii session component for module init.
+- (enh #163): Add ability to configure db connection component.
+- Code optimizations for Dynagrid jQuery plugin.
+- (enh #161): Enhance dynagrid form submission to prevent enter key submitting the form wrongly.
 - Chronological ordering of issues for change log.
 - (bug #156): Correct dynagrid detail minified JS file.
 - (enh #154): Hash signature validation for security.

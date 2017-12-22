@@ -10,6 +10,7 @@ namespace yii\debug\panels;
 use Yii;
 use yii\base\Controller;
 use yii\base\Model;
+use yii\base\InvalidConfigException;
 use yii\data\ArrayDataProvider;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveRecord;
@@ -21,16 +22,20 @@ use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
+use yii\web\IdentityInterface;
+use yii\web\User;
 
 /**
  * Debugger panel that collects and displays user data.
+ *
+ * @property DataProviderInterface $userDataProvider This property is read-only.
+ * @property Model|UserSearchInterface $usersFilterModel This property is read-only.
  *
  * @author Daniel Gomez Pan <pana_1990@hotmail.com>
  * @since 2.0.8
  */
 class UserPanel extends Panel
 {
-
     /**
      * @var array the rule which defines who allowed to switch user identity.
      * Access Control Filter single rule. Ignore: actions, controllers, verbs.
@@ -43,47 +48,65 @@ class UserPanel extends Panel
     public $ruleUserSwitch = [
         'allow' => false,
     ];
-
     /**
      * @var UserSwitch object of switching users
      * @since 2.0.10
      */
     public $userSwitch;
-
     /**
      * @var Model|UserSearchInterface Implements of User model with search method.
      * @since 2.0.10
      */
     public $filterModel;
-
     /**
      * @var array allowed columns for GridView.
      * @see http://www.yiiframework.com/doc-2.0/yii-grid-gridview.html#$columns-detail
      * @since 2.0.10
      */
     public $filterColumns = [];
+    /**
+     * @var string|User ID of the user component or a user object
+     * @since 2.0.13
+     */
+    public $userComponent = 'user';
+
 
     /**
      * @inheritdoc
      */
     public function init()
     {
-        if (!\Yii::$app->getUser()->isGuest) {
-            $this->userSwitch = new UserSwitch();
-            $this->addAccesRules();
+        if (
+            !$this->isEnabled()
+            || $this->getUser()->isGuest
+        ) {
+            return;
+        }
 
-            if (!is_object($this->filterModel)
-                && class_exists($this->filterModel)
-                && in_array('yii\debug\models\search\UserSearchInterface', class_implements($this->filterModel), true)
-            ) {
-                $this->filterModel = new $this->filterModel;
-            } elseif (\Yii::$app->user && \Yii::$app->user->identityClass) {
-                $identityImplement = new \Yii::$app->user->identityClass();
-                if ($identityImplement instanceof ActiveRecord) {
-                    $this->filterModel = new \yii\debug\models\search\User();
-                }
+        $this->userSwitch = new UserSwitch(['userComponent' => $this->userComponent]);
+        $this->addAccesRules();
+
+        if (!is_object($this->filterModel)
+            && class_exists($this->filterModel)
+            && in_array('yii\debug\models\search\UserSearchInterface', class_implements($this->filterModel), true)
+        ) {
+            $this->filterModel = new $this->filterModel;
+        } elseif ($this->getUser() && $this->getUser()->identityClass) {
+            if (is_subclass_of($this->getUser()->identityClass, ActiveRecord::className())) {
+                $this->filterModel = new \yii\debug\models\search\User();
             }
         }
+
+    }
+
+    /**
+     * @return User|null
+     * @since 2.0.13
+     */
+    public function getUser()
+    {
+        /* @var $user User */
+        return is_string($this->userComponent) ? Yii::$app->get($this->userComponent, false) : $this->userComponent;
     }
 
     /**
@@ -143,6 +166,10 @@ class UserPanel extends Panel
      */
     public function canSwitchUser()
     {
+        if ($this->getUser()->isGuest) {
+            return false;
+        }
+
         $allowSwitchUser = false;
 
         $rule = new AccessRule($this->ruleUserSwitch);
@@ -208,7 +235,7 @@ class UserPanel extends Panel
             $authManager = Yii::$app->getAuthManager();
 
             if ($authManager instanceof \yii\rbac\ManagerInterface) {
-                $roles = ArrayHelper::toArray($authManager->getRolesByUser(Yii::$app->getUser()->id));
+                $roles = ArrayHelper::toArray($authManager->getRolesByUser($this->getUser()->id));
                 foreach ($roles as &$role) {
                     $role['data'] = $this->dataToString($role['data']);
                 }
@@ -217,7 +244,7 @@ class UserPanel extends Panel
                     'allModels' => $roles,
                 ]);
 
-                $permissions = ArrayHelper::toArray($authManager->getPermissionsByUser(Yii::$app->getUser()->id));
+                $permissions = ArrayHelper::toArray($authManager->getPermissionsByUser($this->getUser()->id));
                 foreach ($permissions as &$permission) {
                     $permission['data'] = $this->dataToString($permission['data']);
                 }
@@ -232,6 +259,9 @@ class UserPanel extends Panel
         }
 
         $identityData = $this->identityData($identity);
+        foreach ($identityData as $key => $value) {
+            $identityData[$key] = VarDumper::dumpAsString($value);
+        }
 
         // If the identity is a model, let it specify the attribute labels
         if ($identity instanceof Model) {
@@ -249,11 +279,25 @@ class UserPanel extends Panel
         }
 
         return [
+            'id' => $identity->getId(),
             'identity' => $identityData,
             'attributes' => $attributes,
             'rolesProvider' => $rolesProvider,
             'permissionsProvider' => $permissionsProvider,
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isEnabled()
+    {
+        try {
+            $this->getUser();
+        } catch (InvalidConfigException $exception) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -274,7 +318,7 @@ class UserPanel extends Panel
     /**
      * Returns the array that should be set on [[\yii\widgets\DetailView::model]]
      *
-     * @param mixed $identity
+     * @param IdentityInterface $identity
      * @return array
      */
     protected function identityData($identity)

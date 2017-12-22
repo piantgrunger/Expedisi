@@ -4,7 +4,7 @@
  * @package   yii2-dynagrid
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2017
- * @version   1.4.6
+ * @version   1.4.8
  */
 
 namespace kartik\dynagrid;
@@ -38,10 +38,6 @@ class Module extends \kartik\base\Module
      * Cookie expiry (used for dynagrid configuration storage)
      */
     const COOKIE_EXPIRY = 8640000; // 100 days
-    /**
-     * Session key variable name for storing the dynagrid configuration encryption salt.
-     */
-    const SALT_SESS_KEY = "krajeeDGConfigSalt";
 
     /**
      * @var array the settings for the cookie to be used in saving the dynagrid setup
@@ -92,10 +88,11 @@ class Module extends \kartik\base\Module
     public $settingsView = 'settings';
 
     /**
-     * @var mixed the action URL for displaying the dynagrid detail configuration settings
-     * on the dynagrid detail settings form
+     * @var mixed the action URL for displaying the dynagrid detail configuration settings on the dynagrid detail
+     * settings form. If this is not set it will default to `<moduleId>/settings/get-config`, where `<moduleId>` is
+     * the module identifier for the dynagrid module.
      */
-    public $settingsConfigAction = '/dynagrid/settings/get-config';
+    public $settingsConfigAction;
 
     /**
      * @var array the theme configuration for the gridview
@@ -146,42 +143,22 @@ class Module extends \kartik\base\Module
     public $maxPageSize = 50;
 
     /**
-     * @var string a random salt that will be used to generate a hash signature for tree configuration. If not set, this
-     * will be generated using [[\yii\base\Security::generateRandomKey()]] to generate a random key. The randomly
-     * generated salt in the second case will be stored in a session variable identified by [[SALT_SESS_KEY]].
+     * @var string a random salt that will be used to generate a hash signature for tree configuration.
      */
-    public $configEncryptSalt;
+    public $configEncryptSalt = 'SET_A_SALT_FOR_YII2_DYNAGRID';
+
+    /**
+     * @inheritdoc
+     */
+    protected $_msgCat = 'kvdynagrid';
 
     /**
      * @inheritdoc
      */
     public function init()
     {
-        $this->_msgCat = 'kvdynagrid';
         parent::init();
-        $app = Yii::$app;
-        if ($app->has('session') && !isset($this->configEncryptSalt)) {
-            $session = $app->session;
-            if (!$session->get(self::SALT_SESS_KEY)) {
-                $session->set(self::SALT_SESS_KEY, $app->security->generateRandomKey());
-            }
-            $this->configEncryptSalt = $session->get(self::SALT_SESS_KEY);
-        } elseif (!isset($this->configEncryptSalt)) {
-            $this->configEncryptSalt = '<$0ME_R@ND0M_$@LT>';
-        }
         $this->initSettings();
-    }
-
-    /**
-     * Gets the module instance
-     *
-     * @param string $module the module name
-     *
-     * @return Module
-     */
-    public static function fetchModule($module = self::MODULE)
-    {
-        return Config::getModule($module);
     }
 
     /**
@@ -190,6 +167,7 @@ class Module extends \kartik\base\Module
     public function initSettings()
     {
         $this->dbSettings += [
+            'connection' => 'db',
             'tableName' => 'tbl_dynagrid',
             'idAttr' => 'id',
             'filterAttr' => 'filter_id',
@@ -197,6 +175,7 @@ class Module extends \kartik\base\Module
             'dataAttr' => 'data'
         ];
         $this->dbSettingsDtl += [
+            'connection' => 'db',
             'tableName' => 'tbl_dynagrid_dtl',
             'idAttr' => 'id',
             'categoryAttr' => 'category',
@@ -222,6 +201,5 @@ class Module extends \kartik\base\Module
             'deleteConfirmation' => Yii::t('kvdynagrid', 'Are you sure you want to delete the setting?'),
             'messageOptions' => [],
         ], $this->dynaGridOptions);
-
     }
 }
