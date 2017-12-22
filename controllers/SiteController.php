@@ -13,6 +13,7 @@ use app\models\ResetPasswordForm;
 use app\models\SignupForm;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
+use app\models\UserCRUD;
 
 class SiteController extends Controller
 {
@@ -88,7 +89,13 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $modelUser = UserCRUD::findOne(Yii::$app->user->id);
+            $session = Yii::$app->session;
+            $session['id_outlet']=$modelUser->id_outlet;
+            
             return $this->goBack();
+            
+            
         } else {
             return $this->render('login', [
                 'model' => $model,

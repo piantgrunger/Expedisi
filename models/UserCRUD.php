@@ -14,6 +14,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
+ * 
+ * @property integer $id_outlet
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
