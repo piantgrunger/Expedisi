@@ -7,7 +7,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
-
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "tb_m_outlet".
@@ -72,5 +72,15 @@ class Outlet extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
+    }
+    public function getDataBrowseOutlet()
+    {        
+     return ArrayHelper::map(
+                     Outlet::find()
+                                        ->select([
+                                                'id_outlet','nama_outlet'
+                                        ])
+                                        ->asArray()
+                                        ->all(), 'id_outlet', 'nama_outlet');
     }
 }

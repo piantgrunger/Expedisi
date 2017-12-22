@@ -14,7 +14,7 @@ $menuItems =
                         'items' => [
                     ['label' => 'App. Route' , 'icon' =>  'user', 'url' => ['/mimin/route/'],'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Role' , 'icon' =>  'user', 'url' => ['/mimin/role/'],'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'User' , 'icon' => 'user', 'url' => ['/mimin/user/'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'User' , 'icon' => 'user', 'url' => ['/user/'],'visible' => !Yii::$app->user->isGuest],
                    ]]
                                  ,
                 ];     

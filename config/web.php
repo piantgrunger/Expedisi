@@ -17,7 +17,7 @@ $config = [
         'site/*',
            
           */
-         'site/*',
+         'site/captcha',
         'debug/*',
         'mimin/*', // only in dev mode
     ],
