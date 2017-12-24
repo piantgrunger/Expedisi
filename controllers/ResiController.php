@@ -8,6 +8,10 @@ use app\models\ResiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
+use app\models\Kota;
+use app\models\Kelurahan;
+use app\models\Kecamatan;
 
 /**
  * ResiController implements the CRUD actions for Resi model.
@@ -95,6 +99,51 @@ class ResiController extends Controller
             ]);
         }
     }
+
+// THE CONTROLLER
+public function actionKota() {
+    $out = [];
+    if (isset($_POST['depdrop_parents'])) {
+        $id_propinsi = $_POST['depdrop_parents'];
+            $out = Kota::getDataBrowseKota($id_propinsi); 
+            // the getDefaultSubCat function will query the database
+            // and return the default sub cat for the cat_id
+            
+            echo Json::encode(['output'=>$out, 'selected'=>'']);
+            return;
+    }
+    echo Json::encode(['output'=>'', 'selected'=>'']);
+}
+// THE CONTROLLER
+public function actionKelurahan() {
+    $out = [];
+    if (isset($_POST['depdrop_parents'])) {
+        $id_propinsi = $_POST['depdrop_parents'];
+            $out = Kelurahan::getDataBrowseKelurahan($id_propinsi); 
+            // the getDefaultSubCat function will query the database
+            // and return the default sub cat for the cat_id
+            
+            echo Json::encode(['output'=>$out, 'selected'=>'']);
+            return;
+    }
+    echo Json::encode(['output'=>'', 'selected'=>'']);
+}
+
+
+// THE CONTROLLER
+public function actionKecamatan() {
+    $out = [];
+    if (isset($_POST['depdrop_parents'])) {
+        $id_propinsi = $_POST['depdrop_parents'];
+            $out = Kecamatan::getDataBrowseKecamatan($id_propinsi); 
+            // the getDefaultSubCat function will query the database
+            // and return the default sub cat for the cat_id
+            
+            echo Json::encode(['output'=>$out, 'selected'=>'']);
+            return;
+    }
+    echo Json::encode(['output'=>'', 'selected'=>'']);
+}
 
     /**
      * Deletes an existing Resi model.

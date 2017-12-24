@@ -14,10 +14,10 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "tb_m_kelurahan".
  *
  * @property string $id_kelurahan
- * @property int $id_kecamatan
+ * @property int $id_Kelurahan
  * @property string $nama_kelurahan
  *
- * @property TbMKecamatan $kecamatan
+ * @property TbMKelurahan $Kelurahan
  * @property TbMtResi[] $tbMtResis
  * @property TbMtResi[] $tbMtResis0
  */
@@ -53,10 +53,10 @@ class Kelurahan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_kelurahan', 'id_kecamatan', 'nama_kelurahan'], 'required'],
-            [['id_kelurahan', 'id_kecamatan'], 'integer'],
+            [['id_kelurahan', 'id_Kelurahan', 'nama_kelurahan'], 'required'],
+            [['id_kelurahan', 'id_Kelurahan'], 'integer'],
             [['nama_kelurahan'], 'string', 'max' => 50],
-            [['id_kecamatan'], 'exist', 'skipOnError' => true, 'targetClass' => Kecamatan::className(), 'targetAttribute' => ['id_kecamatan' => 'id_kecamatan']],
+            [['id_Kelurahan'], 'exist', 'skipOnError' => true, 'targetClass' => Kelurahan::className(), 'targetAttribute' => ['id_Kelurahan' => 'id_Kelurahan']],
         ];
     }
 
@@ -67,7 +67,7 @@ class Kelurahan extends \yii\db\ActiveRecord
     {
         return [
             'id_kelurahan' => 'Id Kelurahan',
-            'id_kecamatan' => 'Id Kecamatan',
+            'id_Kelurahan' => 'Id Kelurahan',
             'nama_kelurahan' => 'Nama Kelurahan',
         ];
     }
@@ -75,20 +75,25 @@ class Kelurahan extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getKecamatan()
+    public function getKelurahan()
     {
-        return $this->hasOne(Kecamatan::className(), ['id_kecamatan' => 'id_kecamatan']);
+        return $this->hasOne(Kelurahan::className(), ['id_Kelurahan' => 'id_Kelurahan']);
     }
 
-       public function getDataBrowseKelurahan()
+    public function getDataBrowseKelurahan($id_kecamatan)
     {        
-     return ArrayHelper::map(
-                     Kelurahan::find()
-                                        ->select([
-                                                'id_kelurahan','nama_kelurahan'
-                                        ])
-                                        ->asArray()
-                                        ->all(), 'id_kelurahan', 'nama_kelurahan');
+        $data=Kelurahan::find()
+            ->select([
+           'id'=>'id_kelurahan','name'=>'nama_kelurahan'
+           ])
+           ->where(['id_kecamatan'=>$id_kecamatan])
+           ->asArray()      
+           ->all();
+
+     foreach ($data as $i => $list) 
+     {
+        $out[] = ['id' => $list['id'], 'name' => $list['name']];
+      }
+      return $out;  
     }
-  
-}
+ }

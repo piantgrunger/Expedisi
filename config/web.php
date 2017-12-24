@@ -18,6 +18,7 @@ $config = [
            
           */
          'site/captcha',
+         'resi/kota',
         'debug/*',
         'mimin/*', // only in dev mode
     ],

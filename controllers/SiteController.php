@@ -14,6 +14,7 @@ use app\models\SignupForm;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use app\models\UserCRUD;
+use app\models\Kota;
 
 class SiteController extends Controller
 {
