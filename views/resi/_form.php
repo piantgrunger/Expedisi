@@ -4,7 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datecontrol\DateControl;
 use yii\bootstrap\Tabs;
-
+use app\models\Outlet;
+use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\models\Resi */
 /* @var $form yii\widgets\ActiveForm */
@@ -15,7 +16,21 @@ use yii\bootstrap\Tabs;
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->errorSummary($model) ?> <!-- ADDED HERE -->
 
-                  
+  <?php   
+  if ($model->id_outlet == '')
+    {
+        echo $form->field($model, 'id_outlet')->widget(Select2::classname(), [
+    
+    'data' => Outlet::getDataBrowseOutlet(),
+    'options' => ['placeholder' => 'Pilih Outlet ...'],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],])->label('Outlet'); 	 
+
+    } else
+    {
+        echo "<h4><u> Outlet : ". $model->outlet->nama_outlet ."</u></h4>";
+    }  ?>            
     
     <?= $form->field($model, 'no_resi')->textInput(['maxlength' => true]) ?>
 

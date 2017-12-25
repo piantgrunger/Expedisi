@@ -116,6 +116,7 @@ class UserController extends Controller
 
 		if ($model->load(Yii::$app->request->post())) {
 			$model->setPassword('123456');
+			$model->auth_key = Yii::$app->security->generateRandomString();
 			$model->status = $model->status==1?10:0;
 			if ($model->save()) {
 				Yii::$app->session->setFlash('success', 'User berhasil dibuat dengan password 123456');

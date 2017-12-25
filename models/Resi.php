@@ -83,8 +83,8 @@ class Resi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'id_propinsi_shipper', 'id_kota_shipper', 'nama_consignee', 'alamat_consignee', 'id_propinsi_consignee', 'id_kota_consignee', 'isi_barang', 'berat_barang', 'charge', 'packing', 'other', 'vat', 'total'], 'required'],
-            [['id_outlet', 'id_propinsi_shipper', 'id_kota_shipper', 'id_kecamatan_shipper', 'id_kelurahan_shipper', 'id_propinsi_consignee', 'id_kota_consignee', 'id_kecamatan_consignee', 'id_kelurahan_consignee'], 'integer'],
+            [['id_outlet', 'no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'id_propinsi_shipper', 'id_kota_shipper', 'nama_consignee', 'alamat_consignee', 'id_propinsi_consignee', 'id_kota_consignee', 'isi_barang', 'berat_barang', 'charge', 'packing', 'other', 'vat', 'total'], 'required'],
+            [[ 'id_propinsi_shipper', 'id_kota_shipper', 'id_kecamatan_shipper', 'id_kelurahan_shipper', 'id_propinsi_consignee', 'id_kota_consignee', 'id_kecamatan_consignee', 'id_kelurahan_consignee'], 'integer'],
             [['tgl_resi', 'tgl_diterima', 'created_at', 'updated_at'], 'safe'],
             [['alamat_shipper', 'alamat_consignee'], 'string'],
             [['berat_barang', 'volume_barang', 'charge', 'packing', 'other', 'vat', 'total'], 'number'],

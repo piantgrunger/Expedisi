@@ -18,7 +18,10 @@ $config = [
            
           */
          'site/captcha',
-         'resi/kota',
+         'resi/kota', 
+         'resi/kelurahan',
+         'resi/kecamatan',
+
         'debug/*',
         'mimin/*', // only in dev mode
     ],
