@@ -7,7 +7,7 @@ use hscstudio\mimin\components\Mimin;
 /* @var $this yii\web\View */
 /* @var $model app\models\Resi */
 
-$this->title = $model->id_resi;
+$this->title = $model->no_resi;
 $this->params['breadcrumbs'][] = ['label' => 'Daftar Resi', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

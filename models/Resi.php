@@ -211,4 +211,18 @@ class Resi extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Kelurahan::className(), ['id_kelurahan' => 'id_kelurahan_consignee']);
     }
+    public function getKotaAsal()
+    {
+        return is_null($this->kotaShipper)?"":$this->kotaShipper->nama_kota;
+    }
+    public function getKotaTujuan()
+    {
+        return is_null($this->kotaConsignee)?"":$this->kotaConsignee->nama_kota;
+    }
+    public function getStatus()
+    {
+        return is_null($this->penerima)?"On Process":"Finished";
+    }
+
+
 }

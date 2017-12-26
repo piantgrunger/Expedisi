@@ -47,6 +47,20 @@ class ResiController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionTerima()
+    {
+        $searchModel = new ResiSearch();
+                                         
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,1);
+                          
+
+        return $this->render('terima', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
 
     /**
      * Displays a single Resi model.
@@ -92,9 +106,30 @@ class ResiController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_resi]);
-        } else {
+            $searchModel = new ResiSearch();
+                                         
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams,1);
+                              
+    
+            return $this->render('terima', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+            } else {
             return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionPenerimaan($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['terima']);
+        } else {
+            return $this->render('updateterima', [
                 'model' => $model,
             ]);
         }

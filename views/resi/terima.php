@@ -37,14 +37,29 @@ $gridColumns=[['class' => 'yii\grid\SerialColumn'],
             // 'created_at',
             // 'updated_at',
 
-         ['class' => 'yii\grid\ActionColumn',   'template' => Mimin::filterActionColumn([
-              'update','delete','view'],$this->context->route),    ],    ]; echo ExportMenu::widget(['dataProvider' => $dataProvider,'columns' => $gridColumns]);
+         ['class' => 'yii\grid\ActionColumn',
+         'template' => '{penerimaan}',
+         'buttons' => [
+             'penerimaan' => function ($url, $model) {
+                 return Html::a('<span class="glyphicon glyphicon-list-alt"></span>', $url, [
+                             'title' => Yii::t('app', 'Penerimaan'),
+                 ]);
+             }
+         ],
+         'urlCreator' => function ($action, $model, $key, $index) {
+             if ($action === 'penerimaan') {
+                 $url =['/resi/penerimaan',"id"=>$model->id_resi]; // your own url generation logic
+                 return $url;
+             }
+         } 
+        
+        ,    ],    ]; echo ExportMenu::widget(['dataProvider' => $dataProvider,'columns' => $gridColumns]);
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ResiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Daftar Resi';
+$this->title = 'Penerimaan Resi';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="resi-index">
@@ -53,8 +68,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p> <?php if ((Mimin::checkRoute($this->context->id."/create"))){ ?>        <?=  Html::a('Resi  Baru', ['create'], ['class' => 'btn btn-success']) ?>
-    <?php } ?>    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

@@ -15,11 +15,14 @@ class ResiSearch extends Resi
     /**
      * @inheritdoc
      */
+    public $kotaAsal;
+    public $kotaTujuan;
+    public $status; 
     public function rules()
     {
         return [
             [['id_resi', 'id_outlet', 'id_propinsi_shipper', 'id_kota_shipper', 'id_kecamatan_shipper', 'id_kelurahan_shipper', 'id_propinsi_consignee', 'id_kota_consignee', 'id_kecamatan_consignee', 'id_kelurahan_consignee'], 'integer'],
-            [['no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'nama_consignee', 'alamat_consignee', 'isi_barang', 'penerima', 'tgl_diterima', 'created_at', 'updated_at'], 'safe'],
+            [['no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'nama_consignee', 'alamat_consignee', 'isi_barang', 'penerima', 'tgl_diterima', 'created_at', 'updated_at','kotaAsal','kotaTujuan'], 'safe'],
             [['berat_barang', 'volume_barang', 'charge', 'packing', 'other', 'vat', 'total'], 'number'],
         ];
     }
@@ -40,11 +43,15 @@ class ResiSearch extends Resi
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$terima=0)
     {
-        $query = Resi::find();
-
-        // add conditions that should always apply here
+        $query = Resi::find()
+                   ->select(['tb_mt_resi.*','kotaAsal'=>'k1.nama_kota' ,' kotaTujuan'=>'k2.nama_kota','status'=>new \yii\db\Expression("case when penerima is null then 'On Process' else 'Finished' end ")])
+                   
+                  ->leftJoin('tb_m_kota k1','k1.id_kota=tb_mt_resi.id_kota_shipper')
+                  ->leftJoin('tb_m_kota k2','k2.id_kota=tb_mt_resi.id_kota_consignee')
+                   ->orderBy('tgl_resi desc');   
+                  // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -81,6 +88,7 @@ class ResiSearch extends Resi
             'total' => $this->total,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            
         ]);
 
         $query->andFilterWhere(['like', 'no_resi', $this->no_resi])
@@ -89,8 +97,13 @@ class ResiSearch extends Resi
             ->andFilterWhere(['like', 'nama_consignee', $this->nama_consignee])
             ->andFilterWhere(['like', 'alamat_consignee', $this->alamat_consignee])
             ->andFilterWhere(['like', 'isi_barang', $this->isi_barang])
-            ->andFilterWhere(['like', 'penerima', $this->penerima]);
-
+            ->andFilterWhere(['like', 'penerima', $this->penerima])
+            ->andFilterWhere(['like', 'k1.nama_kota', $this->kotaAsal])
+            ->andFilterWhere(['like', 'k2.nama_kota', $this->kotaTujuan]);
+        if ($terima==1)    
+        {
+            $query->andWhere("penerima is null");
+        }
         return $dataProvider;
     }
 }

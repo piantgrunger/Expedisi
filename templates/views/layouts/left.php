@@ -18,7 +18,8 @@ $menuItems =
                    ]],
                  ['label' => 'Resi' , 'icon' =>  'gift', 'url' => ['/resi/'],'visible' => !Yii::$app->user->isGuest],
 
-            
+                 ['label' => 'Penerimaan Resi' , 'icon' =>  'gift', 'url' => ['/resi/terima'],'visible' => !Yii::$app->user->isGuest],
+   
                 ];     
 
                 
