@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Resi */
 
-$this->title = 'Pennerimaa Resi: ' . $model->no_resi;
+$this->title = 'Penerimaan Resi: ' . $model->no_resi;
 $this->params['breadcrumbs'][] = ['label' => 'Daftar Resi', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->no_resi, 'url' => ['view', 'id' => $model->id_resi]];
 $this->params['breadcrumbs'][] = 'Update';

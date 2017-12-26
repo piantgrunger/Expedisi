@@ -89,6 +89,13 @@ class ResiController extends Controller
                $session = Yii::$app->session;
                $model->id_outlet=$session['id_outlet'];  
                $model->tgl_resi=date('Y-m-d');
+               $model->charge=0;
+               $model->packing=0;
+               $model->other=0;
+               $model->vat=0;
+               $model->total=0;
+               
+               
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -106,15 +113,8 @@ class ResiController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $searchModel = new ResiSearch();
-                                         
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams,1);
-                              
-    
-            return $this->render('terima', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+  
+            return $this->redirect(['index']);
             } else {
             return $this->render('update', [
                 'model' => $model,
@@ -122,7 +122,7 @@ class ResiController extends Controller
         }
     }
 
-    public function actionPenerimaan($id)
+    public function actionPnerimaan($id)
     {
         $model = $this->findModel($id);
 
