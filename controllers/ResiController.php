@@ -122,7 +122,7 @@ class ResiController extends Controller
         }
     }
 
-    public function actionPnerimaan($id)
+    public function actionPenerimaan($id)
     {
         $model = $this->findModel($id);
 
