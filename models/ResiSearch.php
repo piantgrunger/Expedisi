@@ -112,7 +112,7 @@ class ResiSearch extends Resi
 
         if (! is_null($this->status))
         {
-            if($this->status == 'On Progress')
+            if($this->status == 'On Process')
             {
                 $query->andWhere("penerima is null");
             }else{

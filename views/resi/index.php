@@ -42,7 +42,7 @@ $gridColumns=[['class' => 'yii\grid\SerialColumn'],
              'kotaTujuan',
              [
                 'attribute'=>'status',
-                'filter'=>array("On Progress"=>"On Progress","Finished"=>"Finished"),
+                'filter'=>array("On Process"=>"On Process","Finished"=>"Finished"),
             ],
              //'alamat_consignee:ntext',
             // 'id_propinsi_consignee',
