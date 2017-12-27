@@ -8,8 +8,24 @@ use yii\widgets\Pjax; use kartik\export\ExportMenu;
 $gridColumns=[['class' => 'yii\grid\SerialColumn'], 
           //  'id_outlet',
             'no_resi',
-            'tgl_resi:date',
-            'nama_shipper',
+            [
+                'class' => '\kartik\grid\DataColumn',    
+                'attribute'=>'tgl_resi',
+                'format'=>['date', 'dd-MM-Y'],
+                'filterType'=> '\kartik\daterange\DateRangePicker',
+                'filterWidgetOptions' =>([
+                  'model'=>$searchModel,
+                  'attribute'=>'filter_tgl',
+                  'convertFormat'=>true,                
+                  'pluginOptions'=>[                                          
+                      'locale' => [
+                          'cancelLabel' => 'Clear',
+                          'format' => 'Y-m-d',
+                  ],
+                  ]])
+                  
+              ],
+                   'nama_shipper',
             //'alamat_shipper:ntext',
             'kotaAsal',
             // 'id_propinsi_shipper',
@@ -18,7 +34,7 @@ $gridColumns=[['class' => 'yii\grid\SerialColumn'],
             // 'id_kelurahan_shipper',
              'nama_consignee',
              'kotaTujuan',
-             'status',
+            // 'status',
              //'alamat_consignee:ntext',
             // 'id_propinsi_consignee',
             // 'id_kota_consignee',

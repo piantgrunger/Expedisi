@@ -34,7 +34,8 @@
         "kartik-v/yii2-widget-fileinput": "@dev",
         "kartik-v/yii2-datecontrol": "dev-master",
         "wbraganca/yii2-dynamicform": "*",
-        "league/csv": "^8.2"
+        "league/csv": "^8.2",
+        "kartik-v/yii2-date-range": "*"
 
      
     

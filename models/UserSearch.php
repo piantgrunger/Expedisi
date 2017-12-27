@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\UserCRUD;
+use hscstudio\mimin\models\User;
 
 /**
  * UserSearch represents the model behind the search form about `hscstudio\mimin\models\User`.
  */
-class UserSearch extends UserCRUD
+class UserSearch extends User
 {
 	/**
 	 * @inheritdoc
@@ -52,7 +52,6 @@ class UserSearch extends UserCRUD
 		if (!$this->validate()) {
 			// uncomment the following line if you do not want to return any records when validation fails
 			// $query->where('0=1');
-                                      
 			return $dataProvider;
 		}
 
@@ -68,8 +67,6 @@ class UserSearch extends UserCRUD
 			->andFilterWhere(['like', 'password_hash', $this->password_hash])
 			->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
 			->andFilterWhere(['like', 'email', $this->email]);
-                       
-                
 
 		return $dataProvider;
 	}

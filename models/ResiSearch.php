@@ -22,7 +22,7 @@ class ResiSearch extends Resi
     {
         return [
             [['id_resi', 'id_outlet', 'id_propinsi_shipper', 'id_kota_shipper', 'id_kecamatan_shipper', 'id_kelurahan_shipper', 'id_propinsi_consignee', 'id_kota_consignee', 'id_kecamatan_consignee', 'id_kelurahan_consignee'], 'integer'],
-            [['no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'nama_consignee', 'alamat_consignee', 'isi_barang', 'penerima', 'tgl_diterima', 'created_at', 'updated_at','kotaAsal','kotaTujuan'], 'safe'],
+            [['no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'nama_consignee', 'alamat_consignee', 'isi_barang', 'penerima', 'tgl_diterima', 'created_at', 'updated_at','kotaAsal','kotaTujuan','status'], 'safe'],
             [['berat_barang', 'volume_barang', 'charge', 'packing', 'other', 'vat', 'total'], 'number'],
         ];
     }
@@ -69,7 +69,6 @@ class ResiSearch extends Resi
         $query->andFilterWhere([
             'id_resi' => $this->id_resi,
             'id_outlet' => $this->id_outlet,
-            'tgl_resi' => $this->tgl_resi,
             'id_propinsi_shipper' => $this->id_propinsi_shipper,
             'id_kota_shipper' => $this->id_kota_shipper,
             'id_kecamatan_shipper' => $this->id_kecamatan_shipper,
@@ -104,6 +103,25 @@ class ResiSearch extends Resi
         {
             $query->andWhere("penerima is null");
         }
+        
+        if ( ! is_null($this->tgl_resi) && strpos($this->tgl_resi, ' - ') !== false ) {
+            list($start_date, $end_date) = explode(' - ', $this->tgl_resi);
+            $query->andFilterWhere(['between', 'tgl_resi', $start_date, $end_date]);
+            
+        }
+
+        if (! is_null($this->status))
+        {
+            if($this->status == 'On Progress')
+            {
+                $query->andWhere("penerima is null");
+            }else{
+                $query->andWhere("penerima is not null");
+            }
+        }
+        
         return $dataProvider;
+        
+
     }
 }

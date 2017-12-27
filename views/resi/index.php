@@ -4,11 +4,33 @@
 use hscstudio\mimin\components\Mimin;
 use yii\helpers\Html;
 use kartik\grid\GridView;
+$addon = <<< HTML
+<span class="input-group-addon">
+    <i class="glyphicon glyphicon-calendar"></i>
+</span>
+HTML;
+use kartik\daterange\DateRangePicker;
 use yii\widgets\Pjax; use kartik\export\ExportMenu;
 $gridColumns=[['class' => 'yii\grid\SerialColumn'], 
           //  'id_outlet',
             'no_resi',
-            'tgl_resi:date',
+            [
+              'class' => '\kartik\grid\DataColumn',    
+              'attribute'=>'tgl_resi',
+              'format'=>['date', 'dd-MM-Y'],
+              'filterType'=> '\kartik\daterange\DateRangePicker',
+              'filterWidgetOptions' =>([
+                'model'=>$searchModel,
+                'attribute'=>'filter_tgl',
+                'convertFormat'=>true,                
+                'pluginOptions'=>[                                          
+                    'locale' => [
+                        'cancelLabel' => 'Clear',
+                        'format' => 'Y-m-d',
+                ],
+                ]])
+                
+            ],
             'nama_shipper',
             //'alamat_shipper:ntext',
             'kotaAsal',
@@ -18,7 +40,10 @@ $gridColumns=[['class' => 'yii\grid\SerialColumn'],
             // 'id_kelurahan_shipper',
              'nama_consignee',
              'kotaTujuan',
-             'status',
+             [
+                'attribute'=>'status',
+                'filter'=>array("On Progress"=>"On Progress","Finished"=>"Finished"),
+            ],
              //'alamat_consignee:ntext',
             // 'id_propinsi_consignee',
             // 'id_kota_consignee',
@@ -49,9 +74,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="resi-index">
 
+
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p> <?php if ((Mimin::checkRoute($this->context->id."/create"))){ ?>        <?=  Html::a('Resi  Baru', ['create'], ['class' => 'btn btn-success']) ?>
     <?php } ?>    </p>
@@ -60,6 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => $gridColumns,        'responsive'=>true,
+        
         'hover'=>true,
          'resizableColumns'=>true,    
     ]); ?>
