@@ -13,6 +13,8 @@ use yii\bootstrap\Html;
 
     <?= $form->field($model, 'berat_barang')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'colly_barang')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'volume_barang')->textInput(['maxlength' => true]) ?>
 
 </div>

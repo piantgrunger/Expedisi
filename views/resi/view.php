@@ -29,33 +29,63 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_outlet',
+            [
+                'value'=> $model->outlet->nama_outlet,
+                'label'=> 'Outlet'
+             ],
             'no_resi',
-            'tgl_resi',
+            'tgl_resi:date',
             'nama_shipper',
             'alamat_shipper:ntext',
-            'id_propinsi_shipper',
-            'id_kota_shipper',
-            'id_kecamatan_shipper',
-            'id_kelurahan_shipper',
+            [
+                'value'=> $model->propinsiShipper->nama_propinsi,
+                'label'=> 'Propinsi Shipper'
+             ],
+             [
+                'value'=> $model->kotaShipper->nama_kota,
+                'label'=> 'Kota Shipper'
+             ],
+             [
+                'value'=> $model->kecamatanShipper->nama_kecamatan,
+                'label'=> 'Kecamatan Shipper'
+             ],
+             [
+                'value'=> $model->kelurahanShipper->nama_kelurahan,
+                'label'=> 'Kelurahan Shipper'
+             ],
             'nama_consignee',
             'alamat_consignee:ntext',
-            'id_propinsi_consignee',
-            'id_kota_consignee',
-            'id_kecamatan_consignee',
-            'id_kelurahan_consignee',
+            [
+                'value'=> $model->propinsiConsignee->nama_propinsi,
+                'label'=> 'Propinsi Consignee'
+             ],
+             [
+                'value'=> $model->kotaConsignee->nama_kota,
+                'label'=> 'Kota Consignee'
+             ],
+             [
+                'value'=> $model->kecamatanConsignee->nama_kecamatan,
+                'label'=> 'Kecamatan Consignee'
+             ],
+             [
+                'value'=> $model->kelurahanConsignee->nama_kelurahan,
+                'label'=> 'Kelurahan Consignee'
+             ],
+     
             'isi_barang',
             'berat_barang',
+            'colly_barang',
+            
             'volume_barang',
             'penerima',
-            'tgl_diterima',
+            'tgl_diterima:date',
             'charge',
             'packing',
             'other',
             'vat',
             'total',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
 
