@@ -16,7 +16,13 @@ use kartik\select2\Select2;
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->errorSummary($model) ?> <!-- ADDED HERE -->
 
-  <?php   
+  
+  <div class="form-group">
+  <div class="row">
+        <div class="col-sm-8">   
+
+  <?php
+  
   if ($model->id_outlet == '')
     {
         echo $form->field($model, 'id_outlet')->widget(Select2::classname(), [
@@ -35,8 +41,9 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'no_resi')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tgl_resi')->widget(DateControl::className()) ?>
-   
-     
+    </div>
+    </div>
+    </div>     
                   <?= Tabs::widget([
         'items' => [
             [

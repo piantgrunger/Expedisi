@@ -11,7 +11,7 @@ $addon = <<< HTML
 HTML;
 use kartik\daterange\DateRangePicker;
 use yii\widgets\Pjax; use kartik\export\ExportMenu;
-$gridColumns=[['class' => 'yii\grid\SerialColumn'], 
+$gridColumns=[['class' => 'kartik\grid\SerialColumn'], 
           //  'id_outlet',
             'no_resi',
             [
@@ -62,7 +62,7 @@ $gridColumns=[['class' => 'yii\grid\SerialColumn'],
             // 'created_at',
             // 'updated_at',
 
-         ['class' => 'yii\grid\ActionColumn',   'template' => Mimin::filterActionColumn([
+         ['class' => 'kartik\grid\ActionColumn',   'template' => Mimin::filterActionColumn([
               'update','delete','view'],$this->context->route),    ],    ]; echo ExportMenu::widget(['dataProvider' => $dataProvider,'columns' => $gridColumns]);
 
 /* @var $this yii\web\View */
@@ -84,9 +84,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'columns' => $gridColumns,        'responsive'=>true,
-        
-        'hover'=>true,
+        'columns' => $gridColumns,     
+        'containerOptions' => ['style'=>'overflow: auto'], // only set when $responsive = false
+
+        'tableOptions' => ['class' => 'table  table-bordered table-hover'],
+        'striped'=>false,
+        'containerOptions'=>[true],
+        'pjax' => true,
+        'bordered' => true,
+        'striped' => false,
+        'condensed' => false,
+        'responsive' => true,
+        'hover' => true,
+        'floatHeader' => true,
+        'showPageSummary' => true,
+        'panel' => [
+            'type' => GridView::TYPE_PRIMARY
+      
+        ],  
          'resizableColumns'=>true,    
     ]); ?>
     <?php Pjax::end(); ?>

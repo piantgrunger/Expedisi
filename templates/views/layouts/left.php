@@ -36,7 +36,20 @@ $menuItems =
 
      
     <section class="sidebar">
-  <?php echo Html::img('@web/image/logo.png') ?> 
+    <div class="user-panel">
+    <div class="pull-left image">
+    <?php echo Html::img('@web/img/160_F_79844335_hUetAJF19AyrBTSkcoSPlw45SuQTnGPK.jpg') ?> 
+ 
+    </div>
+    <div class="pull-left info"><p><?=Yii::$app->user->identity->username?></p>
+    <?=Html::a(
+                                    '<i class="fa fa-circle text-success">  Log Out </i> ',
+                                    ['/site/logout'],
+                                    ['data-method' => 'post', ]
+                                )?>
+    </div>
+    
+    </div>
      <?= dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu'],

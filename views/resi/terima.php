@@ -5,7 +5,7 @@ use hscstudio\mimin\components\Mimin;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax; use kartik\export\ExportMenu;
-$gridColumns=[['class' => 'yii\grid\SerialColumn'], 
+$gridColumns=[['class' => 'kartik\grid\SerialColumn'], 
           //  'id_outlet',
             'no_resi',
             [
@@ -53,7 +53,7 @@ $gridColumns=[['class' => 'yii\grid\SerialColumn'],
             // 'created_at',
             // 'updated_at',
 
-         ['class' => 'yii\grid\ActionColumn',
+         ['class' => 'kartik\grid\ActionColumn',
          'template' => '{penerimaan}',
          'buttons' => [
              'penerimaan' => function ($url, $model) {
@@ -88,8 +88,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'columns' => $gridColumns,        'responsive'=>true,
-        'hover'=>true,
+        'columns' => $gridColumns,        
+        'striped'=>false,
+        'containerOptions'=>[true],
+        'pjax' => true,
+        'bordered' => true,
+        'striped' => false,
+        'condensed' => false,
+        'responsive' => true,
+        'hover' => true,
+        'floatHeader' => true,
+        'showPageSummary' => true,
+        'panel' => [
+            'type' => GridView::TYPE_PRIMARY
+      
+        ],  
+         'resizableColumns'=>true,    
          'resizableColumns'=>true,    
     ]); ?>
     <?php Pjax::end(); ?>
