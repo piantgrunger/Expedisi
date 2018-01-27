@@ -69,7 +69,7 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
              }
          } 
         
-        ,    ],    ]; echo ExportMenu::widget(['dataProvider' => $dataProvider,'columns' => $gridColumns]);
+        ,    ],    ]; 
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ResiSearch */

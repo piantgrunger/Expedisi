@@ -12,7 +12,8 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
             // 'updated_at',
 
          ['class' => 'kartik\grid\ActionColumn',   'template' => Mimin::filterActionColumn([
-              'update','delete','view'],$this->context->route),    ],    ]; echo ExportMenu::widget(['dataProvider' => $dataProvider,'columns' => $gridColumns]);
+              'update','delete','view'],$this->context->route),    ],    ];
+              
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\OutletSearch */
