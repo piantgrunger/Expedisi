@@ -32,6 +32,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'kode_customer',
             'nama_customer',
             'alamat_customer:ntext',
+            [
+                'value'=> $model->propinsi->nama_propinsi,
+                'label'=> 'Propinsi'
+             ],
+             [
+                'value'=> $model->kota->nama_kota,
+                'label'=> 'Kota'
+             ],
+             [
+                'value'=> $model->kecamatan->nama_kecamatan,
+                'label'=> 'Kecamatan'
+             ],
+             [
+                'value'=> $model->kelurahan->nama_kelurahan,
+                'label'=> 'Kelurahan'
+             ],
             'created_at',
             'updated_at',
         ],

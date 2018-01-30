@@ -17,8 +17,14 @@ class m180130_080911_create_tb_m_cust extends Migration
             'kode_customer'=>$this->string()->notNull()->unique(),
             'nama_customer' => $this->string()->notNull(),
             'alamat_customer' => $this->text()->notNull(),
+            'id_propinsi' => $this->integer()->notNull(),
+            'id_kota' => $this->integer()->notNull(),
+            'id_kecamatan' => $this->integer(),
+            'id_kelurahan' => $this->biginteger(),
+       
             'created_at'=>$this->datetime(),
              'updated_at'=>$this->datetime(),
+             
  
         ]
 

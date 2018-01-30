@@ -4,11 +4,16 @@
 use hscstudio\mimin\components\Mimin;
 use yii\helpers\Html;
 use kartik\grid\GridView;
- use kartik\export\ExportMenu;
+use yii\widgets\Pjax; use kartik\export\ExportMenu;
 $gridColumns=[['class' => 'kartik\grid\SerialColumn'], 
             'kode_customer',
             'nama_customer',
             'alamat_customer:ntext',
+         //   'id_propinsi',
+            // 'id_kota',
+            // 'id_kecamatan',
+            // 'id_kelurahan',
+            // 'created_at',
             // 'updated_at',
 
          ['class' => 'kartik\grid\ActionColumn',  'template' => Mimin::filterActionColumn([
@@ -25,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="customer-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p> <?php if ((Mimin::checkRoute($this->context->id."/create"))){ ?>        <?=  Html::a(Yii::t('app', 'Customer  Baru'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -52,4 +58,5 @@ $this->params['breadcrumbs'][] = $this->title;
          'resizableColumns'=>true,    
 
     ]); ?>
+    <?php Pjax::end(); ?>
 </div>

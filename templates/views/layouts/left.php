@@ -4,6 +4,7 @@ use yii\helpers\Html;
 $menuItems =
         [
                     ['label' => 'Outlet' , 'icon' =>  'address-card-o', 'url' => ['/outlet/'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Customer' , 'icon' =>  'user-o', 'url' => ['/customer/'],'visible' => !Yii::$app->user->isGuest],
         
                     ['label' => 'Ubah Password' , 'icon' =>  'pencil-square-o', 'url' => ['/site/request-password-reset'],'visible' => !Yii::$app->user->isGuest],
     

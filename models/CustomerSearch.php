@@ -18,7 +18,7 @@ class CustomerSearch extends Customer
     public function rules()
     {
         return [
-            [['id_customer'], 'integer'],
+            [['id_customer', 'id_propinsi', 'id_kota', 'id_kecamatan', 'id_kelurahan'], 'integer'],
             [['kode_customer', 'nama_customer', 'alamat_customer', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -60,6 +60,10 @@ class CustomerSearch extends Customer
         // grid filtering conditions
         $query->andFilterWhere([
             'id_customer' => $this->id_customer,
+            'id_propinsi' => $this->id_propinsi,
+            'id_kota' => $this->id_kota,
+            'id_kecamatan' => $this->id_kecamatan,
+            'id_kelurahan' => $this->id_kelurahan,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

@@ -13,6 +13,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
     ]); ?>
 
     <?= $form->field($model, 'id_customer') ?>
@@ -23,7 +26,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'alamat_customer') ?>
 
-    <?= $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'id_propinsi') ?>
+
+    <?php // echo $form->field($model, 'id_kota') ?>
+
+    <?php // echo $form->field($model, 'id_kecamatan') ?>
+
+    <?php // echo $form->field($model, 'id_kelurahan') ?>
+
+    <?php // echo $form->field($model, 'created_at') ?>
 
     <?php // echo $form->field($model, 'updated_at') ?>
 
