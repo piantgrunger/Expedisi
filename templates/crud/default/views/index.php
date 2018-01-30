@@ -51,15 +51,10 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 }
 ?>
 
-        <?php echo  " ['class' => 'yii\grid\ActionColumn',   'template' => Mimin::filterActionColumn([
+        <?php echo  " ['class' => 'yii\grid\ActionColumn',  'template' => Mimin::filterActionColumn([
               'update','delete','view'],".
                 '$this->context->route),    ],    ];'?>
-<?php  
- echo ' echo ExportMenu::widget(['.
-    '\'dataProvider\' => $dataProvider,'.
-    '\'columns\' => $gridColumns';
-   echo "]);";
-?>
+
 
 
 /* @var $this yii\web\View */
@@ -86,16 +81,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= "<?= " ?>GridView::widget([
         'dataProvider' => $dataProvider,
         <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => \$gridColumns," : "'columns' => \$gridColumns, "; ?>
-        'responsive'=>true,
-        'hover'=>true,
+       
+        'tableOptions' => ['class' => 'table  table-bordered table-hover'],
+        'striped'=>false,
+        'containerOptions'=>[true],
+        'pjax' => true,
+        'bordered' => true,
+        'striped' => false,
+        'condensed' => false,
+        'responsive' => true,
+        'hover' => true,
+        'floatHeader' => true,
+        'showPageSummary' => true,
+        'panel' => [
+            'type' => GridView::TYPE_PRIMARY
+      
+        ],  
          'resizableColumns'=>true,    
+
     ]); ?>
 <?php else: ?>
     <?= "<?= " ?>ListView::widget([
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'item'],
         'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model-><?= $nameAttribute ?>), ['view', <?= $urlParams ?>]);
+            return Html::a(Html::encode($model-><?= $nameAttribute ?>),
+             ['view', <?= $urlParams ?>]);
         },
     ]) ?>
 <?php endif; ?>

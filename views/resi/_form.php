@@ -40,6 +40,8 @@ use kartik\select2\Select2;
     
     <?= $form->field($model, 'no_resi')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'no_sj')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'tgl_resi')->widget(DateControl::className()) ?>
     </div>
     </div>

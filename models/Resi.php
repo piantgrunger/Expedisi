@@ -85,7 +85,7 @@ class Resi extends \yii\db\ActiveRecord
         return [
             [['id_outlet', 'no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'id_propinsi_shipper', 'id_kota_shipper', 'nama_consignee', 'alamat_consignee', 'id_propinsi_consignee', 'id_kota_consignee', 'isi_barang', 'berat_barang', 'charge', 'packing', 'other', 'vat', 'total'], 'required'],
             [[ 'id_propinsi_shipper', 'id_kota_shipper', 'id_kecamatan_shipper', 'id_kelurahan_shipper', 'id_propinsi_consignee', 'id_kota_consignee', 'id_kecamatan_consignee', 'id_kelurahan_consignee'], 'integer'],
-            [['tgl_resi', 'tgl_diterima', 'created_at', 'updated_at'], 'safe'],
+            [['tgl_resi', 'tgl_diterima','no_sj', 'created_at', 'updated_at'], 'safe'],
             [['alamat_shipper', 'alamat_consignee'], 'string'],
             [['berat_barang', 'volume_barang', 'charge','colly_barang', 'packing', 'other', 'vat', 'total'], 'number'],
             [['no_resi', 'nama_shipper', 'nama_consignee'], 'string', 'max' => 255],
