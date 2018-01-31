@@ -6,6 +6,7 @@ use Yii;
 
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 use yii\db\Expression;
 
 
@@ -98,5 +99,16 @@ class Customer extends \yii\db\ActiveRecord
     public function getKelurahan()
     {
         return $this->hasOne(Kelurahan::className(), ['id_kelurahan' => 'id_kelurahan']);
+    }
+
+    public function getDataBrowseCustomer()
+    {        
+     return ArrayHelper::map(
+                     Customer::find()
+                                        ->select([
+                                                'id_customer','nama_customer'
+                                        ])
+                                        ->asArray()
+                                        ->all(), 'id_customer', 'nama_customer');
     }
 }

@@ -83,7 +83,7 @@ class Resi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_outlet', 'no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'id_propinsi_shipper', 'id_kota_shipper', 'nama_consignee', 'alamat_consignee', 'id_propinsi_consignee', 'id_kota_consignee', 'isi_barang', 'berat_barang', 'charge', 'packing', 'other', 'vat', 'total'], 'required'],
+            [['id_outlet', 'no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'id_propinsi_shipper', 'id_kota_shipper', 'nama_consignee', 'alamat_consignee', 'id_propinsi_consignee', 'id_kota_consignee', 'isi_barang', 'berat_barang', 'charge', 'packing', 'other', 'vat', 'total','id_customer'], 'required'],
             [[ 'id_propinsi_shipper', 'id_kota_shipper', 'id_kecamatan_shipper', 'id_kelurahan_shipper', 'id_propinsi_consignee', 'id_kota_consignee', 'id_kecamatan_consignee', 'id_kelurahan_consignee'], 'integer'],
             [['tgl_resi', 'tgl_diterima','no_sj', 'created_at', 'updated_at'], 'safe'],
             [['alamat_shipper', 'alamat_consignee'], 'string'],
@@ -135,6 +135,7 @@ class Resi extends \yii\db\ActiveRecord
             'other' => 'Other',
             'vat' => 'Vat',
             'total' => 'Total',
+            'id_customer' =>'Customer',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -148,6 +149,10 @@ class Resi extends \yii\db\ActiveRecord
         return $this->hasOne(Outlet::className(), ['id_outlet' => 'id_outlet']);
     }
 
+    public function getCustomer()
+    {
+        return $this->hasOne(Customer::className(), ['id_customer' => 'id_customer']);
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

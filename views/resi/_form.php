@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\datecontrol\DateControl;
 use yii\bootstrap\Tabs;
 use app\models\Outlet;
+use app\models\Customer;
 use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model app\models\Resi */
@@ -43,6 +44,16 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'no_sj')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tgl_resi')->widget(DateControl::className()) ?>
+
+<?php
+    echo $form->field($model, 'id_customer')->widget(Select2::classname(), [
+    
+    'data' => Customer::getDataBrowseCustomer(),
+    'options' => ['placeholder' => 'Pilih Customer ...'],
+    'pluginOptions' => [
+        'allowClear' => true
+    ],])->label('Customer'); 	 
+    ?>
     </div>
     </div>
     </div>     
