@@ -41,11 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=> 'Kota'
              ],
              [
-                'value'=> $model->kecamatan->nama_kecamatan,
+                'value'=> is_null($model->kecamatan)?"":$model->kecamatan->nama_kecamatan,
                 'label'=> 'Kecamatan'
              ],
              [
-                'value'=> $model->kelurahan->nama_kelurahan,
+                'value'=> is_null($model->kelurahan)?"":$model->kelurahan->nama_kelurahan,
                 'label'=> 'Kelurahan'
              ],
             'created_at',

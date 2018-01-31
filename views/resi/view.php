@@ -46,11 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=> 'Kota Shipper'
              ],
              [
-                'value'=> $model->kecamatanShipper->nama_kecamatan,
+                'value'=> is_null($model->kecamatanShipper)?"":$model->kecamatanShipper->nama_kecamatan,
                 'label'=> 'Kecamatan Shipper'
              ],
              [
-                'value'=> $model->kelurahanShipper->nama_kelurahan,
+                'value'=> is_null($model->kelurahanShipper)?"":$model->kelurahanShipper->nama_kelurahan,
                 'label'=> 'Kelurahan Shipper'
              ],
             'nama_consignee',
@@ -64,11 +64,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=> 'Kota Consignee'
              ],
              [
-                'value'=> $model->kecamatanConsignee->nama_kecamatan,
+                'value'=> is_null($model->kecamatanConsignee)?"":$model->kecamatanConsignee->nama_kecamatan,
                 'label'=> 'Kecamatan Consignee'
              ],
              [
-                'value'=> $model->kelurahanConsignee->nama_kelurahan,
+                'value'=> is_null($model->kelurahanConsignee)?"":$model->kelurahanConsignee->nama_kelurahan,
                 'label'=> 'Kelurahan Consignee'
              ],
      
