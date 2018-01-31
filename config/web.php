@@ -21,6 +21,7 @@ $config = [
          'resi/kota', 
          'resi/kelurahan',
          'resi/kecamatan',
+         'site/logout',
 
         'debug/*',
         'mimin/*', // only in dev mode

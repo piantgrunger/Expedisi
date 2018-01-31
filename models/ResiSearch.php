@@ -18,12 +18,13 @@ class ResiSearch extends Resi
     public $kotaAsal;
     public $kotaTujuan;
     public $status; 
+    public $namaCustomer;
     public function rules()
     {
         return [
             [['id_resi', 'id_outlet', 'id_propinsi_shipper', 'id_kota_shipper', 'id_kecamatan_shipper', 'id_kelurahan_shipper', 'id_propinsi_consignee', 'id_kota_consignee', 'id_kecamatan_consignee', 'id_kelurahan_consignee'], 'integer'],
-            [['no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'nama_consignee', 'alamat_consignee', 'isi_barang', 'penerima', 'tgl_diterima', 'created_at', 'updated_at','kotaAsal','kotaTujuan','status'], 'safe'],
-            [['berat_barang', 'volume_barang', 'charge', 'packing', 'other', 'vat', 'total'], 'number'],
+            [['no_resi', 'tgl_resi', 'nama_shipper', 'alamat_shipper', 'nama_consignee', 'alamat_consignee', 'penerima', 'tgl_diterima', 'created_at', 'updated_at','kotaAsal','kotaTujuan','namaCustomer','status'], 'safe'],
+            [[ 'charge', 'packing', 'other', 'vat', 'total'], 'number'],
         ];
     }
 
@@ -47,6 +48,7 @@ class ResiSearch extends Resi
     {
         $query = Resi::find()
                    ->select(['tb_mt_resi.*','kotaAsal'=>'k1.nama_kota' ,' kotaTujuan'=>'k2.nama_kota','status'=>new \yii\db\Expression("case when penerima is null then 'On Process' else 'Finished' end ")])
+                   ->leftJoin('tb_m_customer c','c.id_customer=tb_mt_resi.id_customer')
                    
                   ->leftJoin('tb_m_kota k1','k1.id_kota=tb_mt_resi.id_kota_shipper')
                   ->leftJoin('tb_m_kota k2','k2.id_kota=tb_mt_resi.id_kota_consignee')
@@ -77,8 +79,8 @@ class ResiSearch extends Resi
             'id_kota_consignee' => $this->id_kota_consignee,
             'id_kecamatan_consignee' => $this->id_kecamatan_consignee,
             'id_kelurahan_consignee' => $this->id_kelurahan_consignee,
-            'berat_barang' => $this->berat_barang,
-            'volume_barang' => $this->volume_barang,
+//            'berat_barang' => $this->berat_barang,
+  //          'volume_barang' => $this->volume_barang,
             'tgl_diterima' => $this->tgl_diterima,
             'charge' => $this->charge,
             'packing' => $this->packing,
@@ -92,6 +94,8 @@ class ResiSearch extends Resi
 
         $query->andFilterWhere(['like', 'no_resi', $this->no_resi])
             ->andFilterWhere(['like', 'nama_shipper', $this->nama_shipper])
+            ->andFilterWhere(['like', 'nama_customer', $this->namaCustomer])
+   
             ->andFilterWhere(['like', 'alamat_shipper', $this->alamat_shipper])
             ->andFilterWhere(['like', 'nama_consignee', $this->nama_consignee])
             ->andFilterWhere(['like', 'alamat_consignee', $this->alamat_consignee])
@@ -110,14 +114,19 @@ class ResiSearch extends Resi
             
         }
 
-        if (! is_null($this->status))
+        if (!is_null($this->status))
         {
             if($this->status == 'On Process')
             {
                 $query->andWhere("penerima is null");
-            }else{
+            }else if($this->status == 'Finished'){
                 $query->andWhere("penerima is not null");
             }
+        }
+
+        if (isset($session['id_outlet']))
+        {
+            $query->andWhere("id_outlet = ".$session['id_outlet']);
         }
         
         return $dataProvider;

@@ -31,6 +31,7 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
                 ]])
                 
             ],
+            'namaCustomer',
             'nama_shipper',
             //'alamat_shipper:ntext',
             'kotaAsal',
@@ -46,7 +47,7 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
             // 'id_kota_consignee',
             // 'id_kecamatan_consignee',
             // 'id_kelurahan_consignee',
-             'isi_barang',
+             //'isi_barang',
              'berat_barang',
              'colly_barang',
              [

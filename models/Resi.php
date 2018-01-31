@@ -228,6 +228,9 @@ class Resi extends \yii\db\ActiveRecord
     {
         return is_null($this->penerima)?"On Process":"Finished";
     }
-
+    public function getNamaCustomer()
+    {
+        return is_null($this->customer)?"":$this->customer->nama_customer;
+    }
 
 }
