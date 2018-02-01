@@ -72,6 +72,7 @@ class ManifestController extends Controller
             $session = Yii::$app->session;
             $model->id_outlet=$session['id_outlet'];  
             $model->tgl_manifest=date('Y-m-d');
+            $model->pembuat_manifest = Yii::$app->user->identity->username;
   
             return $this->render('create', [
                 'model' => $model,

@@ -41,16 +41,14 @@ use kartik\select2\Select2;
     
     
         <?= $form->field($model, 'tgl_manifest')->widget(DateControl::className()) ?>
-        <?= $form->field($model, 'tujuan_manifest')->textarea(['rows' => 6]) ?>
-
+        <?= $form->field($model, 'tujuan_manifest')->textarea(['rows' => 4]) ?>
+      
         </div>
         <div class="col-sm-6">   
-  
-    <?= $form->field($model, 'nama_sopir')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'nama_sopir')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'nomor_polisi')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'telepon_sopir')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'nomor_polisi')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'telepon_sopir')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'pembuat_manifest')->textInput(['maxlength' => true]) ?>
 </div>
