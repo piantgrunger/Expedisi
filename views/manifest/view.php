@@ -4,10 +4,12 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use hscstudio\mimin\components\Mimin;
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Manifest */
-
-$this->title = $model->id_manifest;
+$berat=0.00;
+$colly=0.00;
+$this->title = "Manifest No:". $model->no_manifest;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Daftar Manifest'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -29,8 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_outlet',
-            'no_manifest',
+            [
+                'value'=> $model->outlet->nama_outlet,
+                'label'=> 'Outlet'
+             ],
+          'no_manifest',
             'tgl_manifest',
             'tujuan_manifest:ntext',
             'nama_sopir',
@@ -41,5 +46,59 @@ $this->params['breadcrumbs'][] = $this->title;
             'updated_at',
         ],
     ]) ?>
+
+<div class="panel panel-primary">
+<div class="panel-heading"> Data Resi - Manifest
+
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>No Resi</th>
+            <th>Tujuan</th>
+            <th>Berat Barang</th>
+            <th>Colly Barang</th>
+            
+            
+            
+            <th>Keterangan</th>
+        </tr>
+    </thead>
+     <tbody>
+      <?php 
+        foreach($model->detailManifest as $detail)
+        {
+           echo "<td>".$detail->resi->no_resi. "</td>";
+           echo "<td>".$detail->resi->kotaConsignee->nama_kota. "</td>";
+           echo "<td>".$detail->resi->berat_barang. "</td>";
+           echo "<td>".$detail->resi->colly_barang. "</td>";
+        
+           echo "<td>".$detail->keterangan ."</td>" ;
+           $berat +=$detail->resi->berat_barang;
+           $colly +=$detail->resi->colly_barang;
+           
+        }
+      ?>  
+     
+     </tbody>
+     <tfoot>
+        <tr>
+            
+            <th></th>
+            <th></th>
+            <th><?=$berat?></th>
+            <th><?=$colly?></th>
+            
+            
+            
+            <th></th>
+        </tfoot>
+    </thead>
+ 
+</table>
+</div>
+</div>
 
 </div>

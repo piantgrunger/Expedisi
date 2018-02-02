@@ -65,8 +65,21 @@ class ManifestController extends Controller
     {
         $model = new Manifest();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_manifest]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->detailManifest = Yii::$app->request->post('Det_Manifest', []);
+             
+                if ($model->save()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id_manifest]);
+                }
+                $transaction->rollBack();
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+     
         } else {
 
             $session = Yii::$app->session;

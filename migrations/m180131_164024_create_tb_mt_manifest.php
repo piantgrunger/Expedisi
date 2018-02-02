@@ -28,10 +28,17 @@ class m180131_164024_create_tb_mt_manifest extends Migration
             'created_at'=>$this->datetime(),
              'updated_at'=>$this->datetime(),
  
-        ]
-
-        );
-       
+        ]        );
+        $this->addForeignKey(
+            'fk-manifest1',
+            'tb_mt_manifest',
+            'id_outlet',
+            'tb_m_outlet',
+            'id_outlet',
+            'RESTRICT',
+            'CASCADE'        
+            );
+           
     }
 
     /**

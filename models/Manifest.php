@@ -7,7 +7,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
-
+use mdm\behaviors\ar\RelationTrait;
 
 /**
  * This is the model class for table "tb_mt_manifest".
@@ -29,6 +29,8 @@ class Manifest extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    use RelationTrait;
+ 
 
 
     public function behaviors()
@@ -84,4 +86,19 @@ class Manifest extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+
+    public function getDetailManifest()
+    {
+        return $this->hasMany(Det_Manifest::className(), ['id_manifest' => 'id_manifest']);
+    }
+    public function setDetailManifest($value)
+    {
+        return $this->loadRelated('detailManifest',$value);
+    }
+    public function getOutlet()
+    {
+        return $this->hasOne(Outlet::className(), ['id_outlet' => 'id_outlet']);
+    }
+
+  
 }

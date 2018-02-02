@@ -7,6 +7,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 
 /**
@@ -232,5 +233,18 @@ class Resi extends \yii\db\ActiveRecord
     {
         return is_null($this->customer)?"":$this->customer->nama_customer;
     }
+
+    public function getDataBrowseResi()
+    {        
+     return ArrayHelper::map(
+                     Resi::find()
+                                        ->select([
+                                                'id_resi','no_resi'
+                                        ])
+                                        ->asArray()
+                                        ->where(['penerima'=>null])
+                                        ->all(), 'id_resi', 'no_resi');
+    }
+    
 
 }

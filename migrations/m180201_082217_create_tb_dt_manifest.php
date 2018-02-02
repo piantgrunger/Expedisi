@@ -19,8 +19,26 @@ class m180201_082217_create_tb_dt_manifest extends Migration
             'keterangan' => $this->text(),
             'created_at'=>$this->datetime(),
             'updated_at'=>$this->datetime(),
-        ]);
- 
+        ]); $this->addForeignKey(
+            'fk-manifestdetail',
+            'tb_dt_manifest',
+            'id_manifest',
+            'tb_mt_manifest',
+            'id_manifest',
+            'CASCADE',
+            'CASCADE'        
+            );
+            $this->addForeignKey(
+                'fk-manifestresi',
+                'tb_dt_manifest',
+                'id_resi',
+                'tb_mt_resi',
+                'id_resi',
+                'RESTRICT',
+                'CASCADE'        
+                );
+           
+           
  
     }
 

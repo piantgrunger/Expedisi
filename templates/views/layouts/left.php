@@ -19,8 +19,8 @@ $menuItems =
                     ['label' => 'User' , 'icon' => 'user', 'url' => ['/user/'],'visible' => !Yii::$app->user->isGuest],
                    ]],
                  ['label' => 'Resi' , 'icon' =>  'gift', 'url' => ['/resi/'],'visible' => !Yii::$app->user->isGuest],
-
-                 ['label' => 'Penerimaan Resi' , 'icon' =>  'gift', 'url' => ['/resi/terima'],'visible' => !Yii::$app->user->isGuest],
+                 ['label' => 'Penerimaan Resi' , 'icon' =>  'check-square', 'url' => ['/resi/terima'],'visible' => !Yii::$app->user->isGuest],
+                 ['label' => 'Manifest Pengiriman' , 'icon' =>  'truck', 'url' => ['/manifest/'],'visible' => !Yii::$app->user->isGuest],
    
                 ];     
 

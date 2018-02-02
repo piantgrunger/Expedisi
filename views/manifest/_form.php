@@ -6,6 +6,7 @@ use kartik\datecontrol\DateControl;
 use app\models\Outlet;
 use app\models\Customer;
 use kartik\select2\Select2;
+use mdm\widgets\TabularInput;
 
 
 /* @var $this yii\web\View */
@@ -53,6 +54,37 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'pembuat_manifest')->textInput(['maxlength' => true]) ?>
 </div>
 </div>
+<div class="panel panel-primary">
+<div class="panel-heading"> Data Resi - Manifest
+
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>No Resi</th>
+            <th>Keterangan</th>
+            <th><a id="btn-add" href="#"><span class="glyphicon glyphicon-plus"></span></a></th>
+        </tr>
+    </thead>
+    <?= 
+    TabularInput::widget([
+        'id' => 'detail-grid',
+        'allModels' => $model->detailManifest,
+        'model' => \app\models\Det_Manifest::className(),
+        'tag' => 'tbody',
+        'form' => $form,
+        'itemOptions' => ['tag' => 'tr'],
+        'itemView' => '_item_detail_manifest',
+        'clientOptions' => [
+            'btnAddSelector' => '#btn-add',
+        ]
+    ]);
+?>
+</table>
+
+</div>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
