@@ -18,7 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-             <?php if ((Mimin::checkRoute($this->context->id."/update"))){ ?>        <?= Html::a(Yii::t('app', 'Ubah'), ['update', 'id' => $model->id_manifest], ['class' => 'btn btn-primary']) ?>
+             <?php if ((Mimin::checkRoute($this->context->id."/update"))){ ?>     
+                <?= Html::a(Yii::t('app', 'Ubah'), ['update', 'id' => $model->id_manifest], 
+                ['class' => 'btn btn-primary']) ?>
+
         <?php } if ((Mimin::checkRoute($this->context->id."/delete"))){ ?>        <?= Html::a(Yii::t('app', 'Hapus'), ['delete', 'id' => $model->id_manifest], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -26,7 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?php } ?>    </p>
+        <?php } ?>   
+        
+        <?php if ((Mimin::checkRoute($this->context->id."/print"))){ ?>     
+                <?= Html::a(Yii::t('app', 'Print'), ['print', 'id' => $model->id_manifest], 
+                ['class' => 'btn btn-success']) ?>
+         <?php }?>      
+        
+        
+         </p>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -66,11 +77,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <th>Keterangan</th>
         </tr>
     </thead>
-     <tbody>
       <?php 
         foreach($model->detailManifest as $detail)
         {
-           echo "<td>".$detail->resi->no_resi. "</td>";
+           echo " <tbody> ";
+
+            echo "<td>".$detail->resi->no_resi. "</td>";
            echo "<td>".$detail->resi->kotaConsignee->nama_kota. "</td>";
            echo "<td>".$detail->resi->berat_barang. "</td>";
            echo "<td>".$detail->resi->colly_barang. "</td>";
@@ -78,11 +90,10 @@ $this->params['breadcrumbs'][] = $this->title;
            echo "<td>".$detail->keterangan ."</td>" ;
            $berat +=$detail->resi->berat_barang;
            $colly +=$detail->resi->colly_barang;
-           
+           echo "     </tbody>           " ;           
         }
       ?>  
      
-     </tbody>
      <tfoot>
         <tr>
             

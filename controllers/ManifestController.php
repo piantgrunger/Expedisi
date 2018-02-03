@@ -8,7 +8,7 @@ use app\models\ManifestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use kartik\mpdf\Pdf; 
 /**
  * ManifestController implements the CRUD actions for Manifest model.
  */
@@ -103,8 +103,21 @@ class ManifestController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_manifest]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->detailManifest = Yii::$app->request->post('Det_Manifest', []);
+             
+                if ($model->save()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id_manifest]);
+                }
+                $transaction->rollBack();
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+     
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -133,7 +146,39 @@ class ManifestController extends Controller
          return $this->redirect(['index']);
     }
 
-    /**
+    public function actionPrint($id)
+    {
+           //       
+         $model = $this->findModel($id);  
+         $content = $this->renderPartial('report',['model'=>$model]);
+             // setup kartik\mpdf\Pdf component
+    $pdf = new Pdf([
+        // set to use core fonts only
+        'mode' => Pdf::MODE_UTF8, 
+        // A4 paper format
+        'format' => Pdf::FORMAT_A4, 
+        // portrait orientation
+        'orientation' => Pdf::ORIENT_PORTRAIT, 
+        // stream to browser inline
+        'destination' => Pdf::DEST_BROWSER, 
+        // your html content input
+        'content' => $content,  
+        // format content from your own css file if needed or use the
+        // enhanced bootstrap css built by Krajee for mPDF formatting 
+        'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+        // any css to be embedded if required
+        'cssInline' => '.kv-heading-1{font-size:18px}', 
+         // set mPDF properties on the fly
+        'options' => ['title' => 'Manifest Pengiriman'],
+         // call mPDF methods on the fly
+    ]);
+    
+    // return the pdf output as per the destination setting
+    return $pdf->render(); 
+
+
+    }
+ /**
      * Finds the Manifest model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id

@@ -10,14 +10,15 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
             'no_manifest',
             'tgl_manifest',
             'tujuan_manifest:ntext',
-            // 'nama_sopir',
-            // 'nomor_polisi',
+             'nama_sopir',
+           //  'nomor_polisi',
             // 'telepon_sopir',
             // 'pembuat_manifest',
             // 'created_at',
             // 'updated_at',
 
-         ['class' => 'kartik\grid\ActionColumn',  'template' => Mimin::filterActionColumn([
+         ['class' => 'kartik\grid\ActionColumn',  
+         'template' => Mimin::filterActionColumn([
               'update','delete','view'],$this->context->route),    ],    ];
 
 

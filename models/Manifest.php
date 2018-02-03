@@ -99,6 +99,9 @@ class Manifest extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Outlet::className(), ['id_outlet' => 'id_outlet']);
     }
-
+    public function getDetailCount()
+    {
+         return Det_Manifest::find()->where(['id_manifest' => $this->id_manifest])->count();;
+    }
   
 }
