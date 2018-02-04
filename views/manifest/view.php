@@ -33,7 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
         
         <?php if ((Mimin::checkRoute($this->context->id."/print"))){ ?>     
                 <?= Html::a(Yii::t('app', 'Print'), ['print', 'id' => $model->id_manifest], 
-                ['class' => 'btn btn-success']) ?>
+                ['class' => 'btn btn-success',
+                 'target' => '_blank'
+                ]) ?>
          <?php }?>      
         
         

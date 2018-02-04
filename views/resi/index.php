@@ -52,7 +52,7 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
              'colly_barang',
              [
                 'attribute'=>'status',
-                'filter'=>array("On Process"=>"On Process","Finished"=>"Finished"),
+                'filter'=>array("Belum Dikirim"=>"Belum Dikirim","Sudah Dikirim"=>"Sudah Dikirim","Sampai"=>"Sampai"),
             ],  
             // 'volume_barang',
             // 'penerima',

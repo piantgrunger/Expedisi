@@ -227,7 +227,16 @@ class Resi extends \yii\db\ActiveRecord
     }
     public function getStatus()
     {
-        return is_null($this->penerima)?"On Process":"Finished";
+        $manifest =  \app\models\Det_Manifest::find()
+                 ->where(["id_resi"=>$this->id_resi]);
+        if (is_null($manifest))
+        {
+            return "Sudah Dikirim";
+        }
+        else 
+        {
+            return is_null($this->penerima)?"Belum Dikirim":"Sampai";
+        }
     }
     public function getNamaCustomer()
     {

@@ -116,10 +116,14 @@ class ResiSearch extends Resi
 
         if (!is_null($this->status))
         {
-            if($this->status == 'On Process')
+            if($this->status == 'Sudah Dikirim')
+            {
+                $query->andWhere(["in","id_resi","(select id_resi from tb_dt_manifest)"]);
+            }
+            else if($this->status == 'Belum Dikirim')
             {
                 $query->andWhere("penerima is null");
-            }else if($this->status == 'Finished'){
+            }else if($this->status == 'Sampai'){
                 $query->andWhere("penerima is not null");
             }
         }
