@@ -3,10 +3,10 @@ use hscstudio\mimin\components\Mimin;
 use yii\helpers\Html;
 $menuItems =
         [
+                    ['label' => 'Ubah Password' , 'icon' =>  'pencil-square-o', 'url' => ['/site/request-password-reset'],'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Outlet' , 'icon' =>  'address-card-o', 'url' => ['/outlet/'],'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Customer' , 'icon' =>  'user-o', 'url' => ['/customer/'],'visible' => !Yii::$app->user->isGuest],
         
-                    ['label' => 'Ubah Password' , 'icon' =>  'pencil-square-o', 'url' => ['/site/request-password-reset'],'visible' => !Yii::$app->user->isGuest],
     
                     [
                         'visible' => !Yii::$app->user->isGuest,
@@ -18,10 +18,12 @@ $menuItems =
                     ['label' => 'Role' , 'icon' =>  'user', 'url' => ['/mimin/role/'],'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'User' , 'icon' => 'user', 'url' => ['/user/'],'visible' => !Yii::$app->user->isGuest],
                    ]],
+    
                  ['label' => 'Resi' , 'icon' =>  'gift', 'url' => ['/resi/'],'visible' => !Yii::$app->user->isGuest],
-                 ['label' => 'Penerimaan Resi' , 'icon' =>  'check-square', 'url' => ['/resi/terima'],'visible' => !Yii::$app->user->isGuest],
                  ['label' => 'Manifest Pengiriman' , 'icon' =>  'truck', 'url' => ['/manifest/'],'visible' => !Yii::$app->user->isGuest],
-   
+                 ['label' => 'Penerimaan Resi' , 'icon' =>  'check-square', 'url' => ['/resi/terima'],'visible' => !Yii::$app->user->isGuest],
+                 ['label' => 'Invoice' , 'icon' =>  'money', 'url' => ['/invoice'],'visible' => !Yii::$app->user->isGuest],
+    
                 ];     
 
                 

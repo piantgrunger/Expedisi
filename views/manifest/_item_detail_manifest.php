@@ -14,3 +14,4 @@ use yii\helpers\Url;
      </td>
      <td>    <?= $form->field($model, "[$key]keterangan")->label(false); ?>
 </td>
+<td><a data-action="delete"><span class="glyphicon glyphicon-trash"></span></a></td>

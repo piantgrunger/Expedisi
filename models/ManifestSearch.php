@@ -41,7 +41,9 @@ class ManifestSearch extends Manifest
      */
     public function search($params)
     {
-        $query = Manifest::find();
+        $query = Manifest::find()
+        ->orderBy('tgl_manifest desc');   
+        ;
 
         // add conditions that should always apply here
 
@@ -61,7 +63,6 @@ class ManifestSearch extends Manifest
         $query->andFilterWhere([
             'id_manifest' => $this->id_manifest,
             'id_outlet' => $this->id_outlet,
-            'tgl_manifest' => $this->tgl_manifest,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
@@ -72,6 +73,19 @@ class ManifestSearch extends Manifest
             ->andFilterWhere(['like', 'nomor_polisi', $this->nomor_polisi])
             ->andFilterWhere(['like', 'telepon_sopir', $this->telepon_sopir])
             ->andFilterWhere(['like', 'pembuat_manifest', $this->pembuat_manifest]);
+
+            if (isset($session['id_outlet']))
+            {
+                $query->andWhere("id_outlet = ".$session['id_outlet']);
+            }
+
+            if ( ! is_null($this->tgl_manifest) && strpos($this->tgl_manifest, ' - ') !== false ) {
+                list($start_date, $end_date) = explode(' - ', $this->tgl_manifest);
+                $query->andFilterWhere(['between', 'tgl_manifest', $start_date, $end_date]);
+                
+            }
+    
+        
 
         return $dataProvider;
     }

@@ -253,7 +253,28 @@ class Resi extends \yii\db\ActiveRecord
                                         ->asArray()
                                         ->where(['penerima'=>null])
                                         ->all(), 'id_resi', 'no_resi');
+
     }
+
+    public function getDataBrowseResiInvoice($id_customer)
+    {        
+        $out =[];
+        $data=             Resi::find()
+        ->select([
+                'id_resi','no_resi'
+        ])
+        ->asArray()
+        ->where(['not',['penerima'=>null]])
+        ->andWhere(['id_customer'=>$id_customer])
+        
+        ->all();
+
+     foreach ($data as $i => $list) 
+     {
+        $out[] = ['id' => $list['id_resi'], 'name' => $list['no_resi']];
+      }
+      return $out;  
+    }    
     
 
 }
