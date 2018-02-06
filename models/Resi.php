@@ -228,8 +228,9 @@ class Resi extends \yii\db\ActiveRecord
     public function getStatus()
     {
         $manifest =  \app\models\Det_Manifest::find()
-                 ->where(["id_resi"=>$this->id_resi]);
-        if (isset($manifest))
+                 ->where(["id_resi"=>$this->id_resi])
+                 ->one();
+        if (!is_null($manifest))
         {
             return "Sudah Dikirim";
         }
