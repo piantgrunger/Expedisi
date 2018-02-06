@@ -229,7 +229,7 @@ class Resi extends \yii\db\ActiveRecord
     {
         $manifest =  \app\models\Det_Manifest::find()
                  ->where(["id_resi"=>$this->id_resi]);
-        if (is_null($manifest))
+        if (isset($manifest))
         {
             return "Sudah Dikirim";
         }
