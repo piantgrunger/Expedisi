@@ -11,7 +11,7 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
             [
                 'class' => '\kartik\grid\DataColumn',    
                 'attribute'=>'tgl_resi',
-                'format'=>['date', 'dd-MM-Y'],
+                'format'=>['date', 'dd MMM Y'],
                 'filterType'=> '\kartik\daterange\DateRangePicker',
                 'filterWidgetOptions' =>([
                   'model'=>$searchModel,

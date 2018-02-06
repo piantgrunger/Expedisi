@@ -73,7 +73,8 @@ class ManifestSearch extends Manifest
             ->andFilterWhere(['like', 'nomor_polisi', $this->nomor_polisi])
             ->andFilterWhere(['like', 'telepon_sopir', $this->telepon_sopir])
             ->andFilterWhere(['like', 'pembuat_manifest', $this->pembuat_manifest]);
-
+            $session = Yii::$app->session;
+  
             if (isset($session['id_outlet']))
             {
                 $query->andWhere("id_outlet = ".$session['id_outlet']);

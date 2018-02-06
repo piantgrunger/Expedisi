@@ -79,7 +79,12 @@ class InvoiceSearch extends Invoice
             $query->andFilterWhere(['between', 'tgl_invoice', $start_date, $end_date]);
             
         }
-
+        $session = Yii::$app->session;
+  
+        if (isset($session['id_outlet']))
+        {
+            $query->andWhere("id_outlet = ".$session['id_outlet']);
+        }
         return $dataProvider;
     }
 }

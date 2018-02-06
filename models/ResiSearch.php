@@ -127,7 +127,8 @@ class ResiSearch extends Resi
                 $query->andWhere("penerima is not null");
             }
         }
-
+        $session = Yii::$app->session;
+  
         if (isset($session['id_outlet']))
         {
             $query->andWhere("id_outlet = ".$session['id_outlet']);

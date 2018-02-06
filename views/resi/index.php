@@ -17,7 +17,7 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
             [
               'class' => '\kartik\grid\DataColumn',    
               'attribute'=>'tgl_resi',
-              'format'=>['date', 'dd-MM-Y'],
+              'format'=>['date', 'dd MMM Y'],
               'filterType'=> '\kartik\daterange\DateRangePicker',
               'filterWidgetOptions' =>([
                 'model'=>$searchModel,
@@ -53,20 +53,12 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
              [
                 'attribute'=>'status',
                 'filter'=>array("Belum Dikirim"=>"Belum Dikirim","Sudah Dikirim"=>"Sudah Dikirim","Sampai"=>"Sampai"),
-                'contentOptions' => function ($model, $key, $index, $column) {
-                    if (($model->status=="Sampai"))
-                    {
-                        return ['class' => 'bg-success'];
-                    }
-                    else
-                    {
-                      return ['class' => ( ($model->status=="Belum Dikirim")? 'bg-warning' :'bg-primary')];
-                    }
-                }
-            ],  
+                        ],  
+            'tglKirim:date',
+            'noManifest',
             // 'volume_barang',
-            // 'penerima',
-            // 'tgl_diterima',
+             'penerima',
+             'tgl_diterima:date',
             // 'charge',
             // 'packing',
             // 'other',

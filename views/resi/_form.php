@@ -7,6 +7,7 @@ use yii\bootstrap\Tabs;
 use app\models\Outlet;
 use app\models\Customer;
 use kartik\select2\Select2;
+use hscstudio\mimin\components\Mimin;
 /* @var $this yii\web\View */
 /* @var $model app\models\Resi */
 /* @var $form yii\widgets\ActiveForm */
@@ -54,6 +55,14 @@ use kartik\select2\Select2;
         'allowClear' => true
     ],])->label('Customer'); 	 
     ?>
+            <?php if ((Mimin::checkRoute("customer/create"))){ ?>     
+                <?= Html::a(Yii::t('app', 'Customer Baru'), ['customer/create'], 
+                ['class' => 'btn btn-success',
+                 'target' => '_blank'
+                ]) ?>
+         <?php }?>      
+
+    
     </div>
     </div>
     </div>     

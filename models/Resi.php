@@ -249,6 +249,44 @@ class Resi extends \yii\db\ActiveRecord
     {
         return is_null($this->customer)?"":$this->customer->nama_customer;
     }
+    public function getTglKirim()
+    {
+        $det_manifest =  \app\models\Det_Manifest::find()
+                 
+                 ->where(["id_resi"=>$this->id_resi])
+                 ->one();
+        
+        if(!is_null($det_manifest))
+        {
+          return Manifest::find()
+          ->where(["id_manifest"=>$det_manifest->id_manifest])
+          ->one()->tgl_manifest;
+        }
+        else 
+        {
+          return  null;
+        }
+    }
+
+    public function getnoManifest()
+    {
+        $det_manifest =  \app\models\Det_Manifest::find()
+                 
+                 ->where(["id_resi"=>$this->id_resi])
+                 ->one();
+        
+        if(!is_null($det_manifest))
+        {
+          return Manifest::find()
+          ->where(["id_manifest"=>$det_manifest->id_manifest])
+          ->one()->no_manifest;
+        }
+        else 
+        {
+          return  null;
+        }
+    }
+
 
     public function getDataBrowseResi()
     {        
