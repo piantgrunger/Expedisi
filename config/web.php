@@ -53,7 +53,7 @@ $config = [
         
         // format settings for saving each date attribute (PHP format example)
         'saveSettings' => [
-            Module::FORMAT_DATE => 'yyyy-MM-dd hh:mm:ss', // saves as unix timestamp
+            Module::FORMAT_DATE => 'yyyy-MM-dd', // saves as unix timestamp
             Module::FORMAT_TIME => 'php:H:i:s',
             Module::FORMAT_DATETIME => 'php:Y-m-d H:i:s',
         ],

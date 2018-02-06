@@ -117,9 +117,19 @@ class ResiController extends Controller
   
             return $this->redirect(['index']);
             } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+
+            if (($model->status == 'Sudah Dikirim') || ($model->status=='Sampai'))
+
+            {
+                Yii::$app->session->setFlash('error', "Data Tidak Dapat Dikoreksi Karena Dalam Status : $model->status ");
+                return $this->redirect(['index']);
+            } else
+            {
+              
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
         }
     }
 
@@ -189,9 +199,18 @@ public function actionKecamatan() {
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
         
+        if (($model->status == 'Sudah Dikirim') || ($model->status=='Sampai'))
+
+        {
+            Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dalam Status : $model->status ");
+            return $this->redirect(['index']);
+        } else
+        {   
        try
       {
+          
         $this->findModel($id)->delete();
       
       }
@@ -200,6 +219,7 @@ public function actionKecamatan() {
 	Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dipakai Modul Lain");
        } 
          return $this->redirect(['index']);
+    }    
     }
 
     /**

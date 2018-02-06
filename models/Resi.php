@@ -230,13 +230,19 @@ class Resi extends \yii\db\ActiveRecord
         $manifest =  \app\models\Det_Manifest::find()
                  ->where(["id_resi"=>$this->id_resi])
                  ->one();
+        
+        if(!is_null($this->penerima))
+        {
+          return 'Sampai';
+        }
+        else 
         if (!is_null($manifest))
         {
             return "Sudah Dikirim";
         }
         else 
         {
-            return is_null($this->penerima)?"Belum Dikirim":"Sampai";
+          "Belum Dikirim";
         }
     }
     public function getNamaCustomer()
@@ -252,7 +258,7 @@ class Resi extends \yii\db\ActiveRecord
                                                 'id_resi','no_resi'
                                         ])
                                         ->asArray()
-                                        ->where(['penerima'=>null])
+                                    
                                         ->all(), 'id_resi', 'no_resi');
 
     }
@@ -262,7 +268,7 @@ class Resi extends \yii\db\ActiveRecord
         $out =[];
         $data=             Resi::find()
         ->select([
-                'id_resi','no_resi'
+               'id_resi','no_resi'=>"concat(no_resi,' - Rp ',total)"
         ])
         ->asArray()
         ->where(['not',['penerima'=>null]])

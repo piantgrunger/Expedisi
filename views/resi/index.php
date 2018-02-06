@@ -53,6 +53,16 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
              [
                 'attribute'=>'status',
                 'filter'=>array("Belum Dikirim"=>"Belum Dikirim","Sudah Dikirim"=>"Sudah Dikirim","Sampai"=>"Sampai"),
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    if (($model->status=="Sampai"))
+                    {
+                        return ['class' => 'bg-success'];
+                    }
+                    else
+                    {
+                      return ['class' => ( ($model->status=="Belum Dikirim")? 'bg-warning' :'bg-primary')];
+                    }
+                }
             ],  
             // 'volume_barang',
             // 'penerima',

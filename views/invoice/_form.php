@@ -73,7 +73,7 @@ use mdm\widgets\TabularInput;
         <tr>
             
             <th>No Resi</th>
-            <th>Sub Total</th>
+     
             <th>Keterangan</th>
             <th><a id="btn-add" href="#"><span class="glyphicon glyphicon-plus"></span></a></th>
         </tr>

@@ -1,7 +1,8 @@
 <?php
 
 namespace app\models;
-
+use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
@@ -23,6 +24,22 @@ class Det_Invoice extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['sub_total'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['sub_total'],
+                ],
+                'value' => function ($event) {
+                    return is_null($this->resi)?null: $this->resi->total;
+                },
+            ],
+        ];
+    }
     public static function tableName()
     {
         return 'tb_dt_invoice';
@@ -34,11 +51,11 @@ class Det_Invoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_invoice', 'id_resi', 'sub_total'], 'required'],
+            
             [['id_invoice', 'id_resi'], 'integer'],
             [['sub_total'], 'number'],
             [['keterangan'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at','id_resi','sub_total' ,'updated_at'], 'safe'],
             [['id_invoice'], 'exist', 'skipOnError' => true, 'targetClass' => Invoice::className(), 'targetAttribute' => ['id_invoice' => 'id_invoice']],
             [['id_resi'], 'exist', 'skipOnError' => true, 'targetClass' => Resi::className(), 'targetAttribute' => ['id_resi' => 'id_resi']],
         ];

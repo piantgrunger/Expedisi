@@ -67,10 +67,24 @@ class InvoiceController extends Controller
     {
         $model = new Invoice();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_invoice]);
-        }
+        if ($model->load(Yii::$app->request->post()) ) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->detailInvoice = Yii::$app->request->post('Det_Invoice', []);
+             
+                if ($model->save()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id_invoice]);
+                }
 
+                $transaction->rollBack();
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+     
+        } 
+        
         $session = Yii::$app->session;
         $model->id_outlet=$session['id_outlet'];  
         $model->tgl_invoice=date('Y-m-d');
@@ -79,6 +93,7 @@ class InvoiceController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+        
     }
 
     /**
@@ -92,13 +107,28 @@ class InvoiceController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_invoice]);
-        }
+        if ($model->load(Yii::$app->request->post()) ) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->detailInvoice = Yii::$app->request->post('Det_Invoice', []);
+             
+                if ($model->save()) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id_invoice]);
+                }
+                $transaction->rollBack();
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+     
+        } else
+        {
 
         return $this->render('update', [
             'model' => $model,
         ]);
+        }
     }
 
     /**
