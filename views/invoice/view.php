@@ -25,8 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?php } ?>    </p>
+        <?php } ?>    
 
+        <?php if ((Mimin::checkRoute($this->context->id."/print"))){ ?>     
+                <?= Html::a(Yii::t('app', 'Print'), ['print', 'id' => $model->id_invoice], 
+                ['class' => 'btn btn-success',
+                 'target' => '_blank'
+                ]) ?>
+         <?php }?>      
+         </p>
+        
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

@@ -24,6 +24,7 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
                   ]])
                   
               ],     'namaCustomer',
+              'total',
             // 'created_at',
             // 'updated_at',
 

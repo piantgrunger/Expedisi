@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => $gridColumns,     
-        'containerOptions' => ['style'=>'overflow: auto'], // only set when $responsive = false
+      'containerOptions' => ['style'=>'overflow: auto'], // only set when $responsive = false
 
         'tableOptions' => ['class' => 'table  table-bordered table-hover'],
         'striped'=>false,
@@ -108,9 +108,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'bordered' => true,
         'striped' => false,
         'condensed' => false,
-        'responsive' => true,
+       // 'responsive' => true,
         'hover' => true,
-        'floatHeader' => true,
+        //'floatHeader' => true,
         'showPageSummary' => true,
         'panel' => [
             'type' => GridView::TYPE_PRIMARY

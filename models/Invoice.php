@@ -104,7 +104,7 @@ class Invoice extends \yii\db\ActiveRecord
     {
          return Det_Invoice::find()->where(['id_invoice' => $this->id_invoice])->count();;
     }
- 
+      
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -116,6 +116,22 @@ class Invoice extends \yii\db\ActiveRecord
     public function getNamaCustomer()
     {
         return is_null($this->customer)?"":$this->customer->nama_customer;
+    }
+    
+    public function getTotal()
+    {
+        $x=0;    
+        if ($this->isNewRecord) {
+            return $x; // This avoid calling a query searching for null primary keys.
+        }
+        
+          foreach($this->detailInvoice as $detail)
+          {
+              $x=$x+$detail->sub_total;
+          }    
+     
+     
+        return $x;
     }
 
 }
