@@ -43,7 +43,15 @@ use mdm\widgets\TabularInput;
   </div>
   <div class="col-sm-6">   
   
-    <?= $form->field($model, 'tgl_invoice')->widget(DateControl::className()) ?> 
+    <?= $form->field($model, 'tgl_invoice')->widget(DateControl::className(), [
+    'type'=>DateControl::FORMAT_DATE,
+    'ajaxConversion'=>false,
+    'widgetOptions' => [
+        'pluginOptions' => [
+            'autoclose' => true
+        ]
+    ]
+]); ?> 
 
     <?php
     echo $form->field($model, 'id_customer')->widget(Select2::classname(), [

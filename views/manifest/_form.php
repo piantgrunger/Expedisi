@@ -41,7 +41,15 @@ use mdm\widgets\TabularInput;
         <?= $form->field($model, 'no_manifest')->textInput(['maxlength' => true]) ?>
     
     
-        <?= $form->field($model, 'tgl_manifest')->widget(DateControl::className()) ?>
+        <?= $form->field($model, 'tgl_manifest')->widget(DateControl::className(), [
+    'type'=>DateControl::FORMAT_DATE,
+    'ajaxConversion'=>false,
+    'widgetOptions' => [
+        'pluginOptions' => [
+            'autoclose' => true
+        ]
+    ]
+]); ?>
         <?= $form->field($model, 'tujuan_manifest')->textarea(['rows' => 4]) ?>
       
         </div>
