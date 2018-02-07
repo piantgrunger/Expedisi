@@ -8,7 +8,9 @@ $colly=0;
 ?>
 <h4 align="center" style="font-family: sans-serif;font-size: 15px;"><?=$model->outlet->nama_outlet;?><br>
 
-<?=$model->outlet->alamat_outlet;?><h4>
+<?=$model->outlet->alamat_outlet;?><br>
+<?=ucwords(strtolower($model->outlet->kota->nama_kota))?>
+<h4>
 <p style="font-family: sans-serif;font-size: 12px;" align="right">
   INVOICE
 </p>
@@ -91,7 +93,7 @@ Demikian INVOICE ini kami buat terima kasih atas perhatian dan kerjasamanya
 <br>
 <br>
 <p style="font-family: sans-serif;font-size: 12px;">
-  Surabaya <?=Yii::$app->formatter->asDate($model->tgl_invoice,'dd MMMM yyyy')?>
+<?=ucwords(strtolower($model->outlet->kota->nama_kota))?> <?=Yii::$app->formatter->asDate($model->tgl_invoice,'dd MMMM yyyy')?>
 </p>
 
 <br>

@@ -53,7 +53,8 @@ class Outlet extends \yii\db\ActiveRecord
         return [
             [['kode_outlet', 'nama_outlet', 'alamat_outlet'], 'required'],
             [['alamat_outlet'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at','id_propinsi', 'id_kota', 'id_kecamatan', 'id_kelurahan'], 'safe'],
+            [['id_propinsi', 'id_kota', 'id_kecamatan', 'id_kelurahan'], 'integer'],
             [['kode_outlet', 'nama_outlet'], 'string', 'max' => 255],
             [['kode_outlet'], 'unique'],
         ];
@@ -73,6 +74,24 @@ class Outlet extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
+
+    public function getPropinsi()
+    {
+        return $this->hasOne(Propinsi::className(), ['id_propinsi' => 'id_propinsi']);
+    }
+    public function getKota()
+    {
+        return $this->hasOne(Kota::className(), ['id_kota' => 'id_kota']);
+    }
+    public function getKecamatan()
+    {
+        return $this->hasOne(Kecamatan::className(), ['id_kecamatan' => 'id_kecamatan']);
+    }
+    public function getKelurahan()
+    {
+        return $this->hasOne(Kelurahan::className(), ['id_kelurahan' => 'id_kelurahan']);
+    }
+
     public function getDataBrowseOutlet()
     {        
      return ArrayHelper::map(
