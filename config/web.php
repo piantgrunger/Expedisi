@@ -112,6 +112,8 @@ $config = [
               'class' => 'yii\i18n\Formatter',
             'decimalSeparator' => ',',
             'thousandSeparator' => '.',
+            'nullDisplay' => '-',
+
           
        ],
          'i18n' => [
