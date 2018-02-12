@@ -54,11 +54,11 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
                 'attribute'=>'status',
                 'filter'=>array("Belum Dikirim"=>"Belum Dikirim","Sudah Dikirim"=>"Sudah Dikirim","Sampai"=>"Sampai"),
                         ],  
-           // 'tglKirim:date',
-           // 'noManifest',
+            'tglKirim:date',
+            'noManifest',
             // 'volume_barang',
-           //  'penerima',
-           //  'tgl_diterima:date',
+             'penerima',
+             'tgl_diterima:date',
             // 'charge',
             // 'packing',
             // 'other',
@@ -67,15 +67,14 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
             // 'created_at',
             // 'updated_at',
 
-         ['class' => 'kartik\grid\ActionColumn',   'template' => Mimin::filterActionColumn([
-              'update','delete','view'],$this->context->route),    ],    ];
+  ];
               
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ResiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Daftar Resi';
+$this->title = 'Progress Resi';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="resi-index">
@@ -84,8 +83,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
 
-    <p> <?php if ((Mimin::checkRoute($this->context->id."/create"))){ ?>        <?=  Html::a('Resi  Baru', ['create'], ['class' => 'btn btn-success']) ?>
-    <?php } ?>    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

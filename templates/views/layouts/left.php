@@ -20,6 +20,8 @@ $menuItems =
                    ]],
     
                  ['label' => 'Resi' , 'icon' =>  'gift', 'url' => ['/resi/'],'visible' => !Yii::$app->user->isGuest],
+                 ['label' => 'Progress Resi' , 'icon' =>  'line-chart', 'url' => ['/resi/laporan/'],'visible' => !Yii::$app->user->isGuest],
+ 
                  ['label' => 'Manifest Pengiriman' , 'icon' =>  'truck', 'url' => ['/manifest/'],'visible' => !Yii::$app->user->isGuest],
                  ['label' => 'Penerimaan Resi' , 'icon' =>  'check-square', 'url' => ['/resi/terima'],'visible' => !Yii::$app->user->isGuest],
                  ['label' => 'Invoice' , 'icon' =>  'money', 'url' => ['/invoice'],'visible' => !Yii::$app->user->isGuest],

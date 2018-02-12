@@ -48,6 +48,17 @@ class ResiController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionLaporan()
+    {
+        $searchModel = new ResiSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+       
+      
+        return $this->render('laporan', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     public function actionTerima()
     {
         $searchModel = new ResiSearch();

@@ -118,11 +118,11 @@ class ResiSearch extends Resi
         {
             if($this->status == 'Sudah Dikirim')
             {
-                $query->andWhere(["in","id_resi","(select id_resi from tb_dt_manifest)"]);
+                $query->andWhere("id_resi in (select id_resi from tb_dt_manifest) and penerima is null ");
             }
             else if($this->status == 'Belum Dikirim')
             {
-                $query->andWhere("penerima is null");
+                $query->andWhere("penerima is null and id_resi not in (select id_resi from tb_dt_manifest)");
             }else if($this->status == 'Sampai'){
                 $query->andWhere("penerima is not null");
             }
