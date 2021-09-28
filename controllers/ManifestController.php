@@ -165,8 +165,6 @@ class ManifestController extends Controller
         'content' => $content,  
         // format content from your own css file if needed or use the
         // enhanced bootstrap css built by Krajee for mPDF formatting 
-        'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
-        // any css to be embedded if required
         'cssInline' => '.kv-heading-1{font-size:18px}', 
          // set mPDF properties on the fly
         'options' => ['title' => 'Manifest Pengiriman'],
